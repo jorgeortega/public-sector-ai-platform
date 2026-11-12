@@ -1,0 +1,36 @@
+# The gateway, locally: LiteLLM (the pinned production image), Postgres and a
+# fake upstream. Only for proving budgets and fallbacks with
+# scripts/gateway-smoke.ts; the keys here are local throwaways.
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: litellm
+      POSTGRES_PASSWORD: local-only
+      POSTGRES_DB: litellm
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U litellm"]
+      interval: 2s
+      retries: 30
+
+  upstream:
+    image: node:22-alpine
+    volumes:
+      - ./fake-upstream.mjs:/app/fake-upstream.mjs:ro
+    command: ["node", "/app/fake-upstream.mjs"]
+
+  litellm:
+    image: ghcr.io/berriai/litellm-non_root:v1.106.6
+    depends_on:
+      postgres:
+        condition: service_healthy
+      upstream:
+        condition: service_started
+    environment:
+      LITELLM_MASTER_KEY: sk-local-master-key
+      DATABASE_URL: postgresql://litellm:local-only@postgres:5432/litellm
+    volumes:
+      - ./config.local.yaml:/app/config.yaml:ro
+    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    ports:
+      - "127.0.0.1:4000:4000"

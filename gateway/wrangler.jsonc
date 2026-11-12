@@ -1,0 +1,23 @@
+// The LLM gateway's Worker and its container (gateway/worker.ts). Deployed
+// by the owner: `npx wrangler deploy -c gateway/wrangler.jsonc`, after
+// setting the secrets listed in worker.ts's Env with `wrangler secret put`.
+{
+  "name": "permit-desk-gateway",
+  "main": "worker.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "containers": [
+    {
+      "class_name": "Gateway",
+      "scheduling_policy": "durable_object",
+      "images": { "base": { "dockerfile": "./Dockerfile" } }
+    }
+  ],
+  "durable_objects": {
+    "bindings": [{ "name": "GATEWAY", "class_name": "Gateway" }]
+  },
+  "exports": {
+    "Gateway": { "type": "durable-object", "storage": "sqlite" }
+  }
+}
