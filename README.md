@@ -68,26 +68,26 @@ application). Measured on 2026-11-13:
 | Index | BM25 alone | Vectors alone | Hybrid |
 |---|---|---|---|
 | `hash-256` | 0.935 | 0.898 | 0.898 |
-| `bge-m3` | | | waiting for the query vectors (below) |
+| `bge-m3` | 0.935 | 0.880 | 0.935 |
 
-With the hash stand-in, hybrid is no better than keywords alone. That's
-expected: hash vectors only see shared words, which BM25 already sees
-better. The point of the vector half is meaning, which only bge-m3 brings.
+**What it shows.** On this corpus, hybrid search matches keywords but
+doesn't beat them, even with real embeddings:
+- `bge-m3` alone finds less than BM25, and fusing the two keeps BM25's
+  score;
+- the corpus is small and written in the same words the queries use, which
+  is where BM25 is strongest;
+- vectors earn their place on paraphrases and larger, messier corpora. This
+  one has neither yet, so the honest result is a tie.
 
-The misses with `hash-256`:
-- `pa-bakery-0141` and `pa-bakery-0412` miss PAC 5.12.010 (who needs a food
-  permit);
-- `kb-cafe-0077` misses KBC 6.04.020 (cafés).
+**The misses.**
+- With `bge-m3`: `pa-bakery-0141` and `pa-bakery-0412` miss PAC 5.12.010
+  (who needs a food permit). The general rule loses to the specific ones.
+- With `hash-256`: the same two, plus `kb-cafe-0077`, which misses KBC
+  6.04.020 (cafés).
 
-The test holds a floor of 0.89 for `hash-256` and 0.95 for `bge-m3`.
-
-The `bge-m3` row waits for the nine golden queries' vectors.
-- **Why they're needed.** A query must be embedded by the index's own
-  model, so the build now writes them to `test/fixtures/queries.json` as
-  well.
-- **Until then.** The recall test is skipped and says why in its title.
-- **What fills it.** One more run of `npm run index -- --embedder
-  workers-ai`.
+**The floors.** The test holds a floor at the measured value: 0.89 for
+`hash-256` and 0.93 for `bge-m3`. The query vectors are in
+`test/fixtures/queries.json`, written by the same build as the index.
 
 ## LLM gateway (`gateway/`, `src/gateway`)
 
