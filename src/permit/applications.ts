@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs';
 import type { Tenant } from '../events/events';
+import data from '../../data/applications.json';
 
 // The nine fictional applications (data/applications.json), and the letter
 // each one becomes: the model reads the letter, not the record.
@@ -23,9 +23,8 @@ export type Application = {
   applicant: string;
 };
 
-export const APPLICATIONS: Application[] = (
-  JSON.parse(readFileSync(new URL('../../data/applications.json', import.meta.url), 'utf8')) as { applications: Application[] }
-).applications;
+// Imported, not read from disk, so trigger.dev's bundle carries it.
+export const APPLICATIONS = data.applications as Application[];
 
 export function application(id: string): Application {
   const found = APPLICATIONS.find((app) => app.id === id);

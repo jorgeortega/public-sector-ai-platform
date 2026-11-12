@@ -1,6 +1,6 @@
 """The permit desk's one Python step: check the fields the model extracted.
 
-Reads the fields as JSON on stdin and prints {"problems": [...]} on stdout.
+Reads the fields as JSON (the first argument, or stdin) and prints {"problems": [...]} on stdout.
 Standard library only, so it runs anywhere python3 does, including
 trigger.dev's Python build extension. src/permit/validate.ts holds the same
 rules in TypeScript, for machines without python3; test/engine.test.ts keeps
@@ -39,4 +39,7 @@ def problems(fields: dict) -> list[str]:
 
 
 if __name__ == "__main__":
-    print(json.dumps({"problems": problems(json.load(sys.stdin))}))
+    # The fields come as the first argument (trigger.dev's runScript passes
+    # arguments, not stdin), or on stdin.
+    raw = sys.argv[1] if len(sys.argv) > 1 else sys.stdin.read()
+    print(json.dumps({"problems": problems(json.loads(raw))}))

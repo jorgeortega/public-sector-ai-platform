@@ -1,9 +1,10 @@
+import { python } from '@trigger.dev/python';
 import { metadata, task, wait } from '@trigger.dev/sdk';
 import type { RunEvent } from '../events/events';
 import { application } from '../permit/applications.ts';
 import { registryCall } from '../permit/registry.ts';
 import { PER_CITY, SCENARIO_RUNS } from '../permit/scenarios.ts';
-import { validateFields } from '../permit/validate.ts';
+import { problemsTs } from '../permit/validate.ts';
 import { permit, renewal } from '../permit/workflow.ts';
 import { chat, createRunKey, deleteKey, keyTail } from '../gateway/client.ts';
 import { RUN_KEY } from '../gateway/config.ts';
@@ -137,7 +138,12 @@ export const permitRun = task({
         return { hits, ms: Date.now() - started };
       },
       registry: registryCall(faults),
-      validate: async (fields) => validateFields(fields),
+      // The Python step, through the Python build extension (spec E6).
+      validate: async (fields) => {
+        const result = await python.runScript('./python/validate_fields.py', [JSON.stringify(fields)]);
+        if (result.exitCode === 0 && result.stdout) return { problems: (JSON.parse(result.stdout) as { problems: string[] }).problems, via: 'python' };
+        return { problems: problemsTs(fields), via: 'typescript' };
+      },
       approval: async () => {
         // The site completes this token when the visitor decides; it expires
         // after five minutes.

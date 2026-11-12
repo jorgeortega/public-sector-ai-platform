@@ -141,6 +141,27 @@ The `budget` scenario gives its run a $0.0005 key, so the gateway, not the
 engine, refuses the looping call. At Claude Haiku 5.5's prices, a $0.01
 budget would never be reached before the engine's 12-call limit.
 
+### trigger.dev and recording
+
+- **The project.** `trigger.config.ts` points at the owner's project
+  (`proj_vhbtkfzfcgigvkanwvvo`). `npx trigger.dev@4.8.2 dev` registers
+  `permit-run` and `ping` in its development environment (checked
+  2026-11-13). `ping` needs no secrets: it runs the Python step through the
+  Python build extension.
+- **The recorder.** `src/recorder.ts` plays the platform API: it accepts and
+  queues each run, triggers it with its city as the concurrency key,
+  completes approvals after the scenario's wait, then merges every run's
+  events from its metadata into one replay. `test/recorder.test.ts` proves
+  the merge against a fake trigger.dev built from in-memory runs.
+- **Recording a scenario** (from a clean checkout):
+
+  ```
+  node --env-file=.env --import ./scripts/register.mjs scripts/record.ts <scenario> --site <latitude10 checkout>
+  ```
+
+  It writes `app/ai-platform/_lib/replays/<scenario>.json` as `recorded`,
+  with this repo's commit.
+
 ## LLM gateway (`gateway/`, `src/gateway`)
 
 Every model call goes through the LiteLLM proxy, pinned at
