@@ -1,0 +1,23 @@
+{
+  "name": "public-sector-ai-platform",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The permit desk: a small AI platform for fictional city permit reviews, built in the open for Latitude 10 Labs.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "index": "node scripts/build-index.ts"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261028.1",
+    "@types/node": "22.20.5",
+    "typescript": "6.0.3",
+    "vitest": "4.1.12",
+    "wrangler": "4.155.0"
+  }
+}

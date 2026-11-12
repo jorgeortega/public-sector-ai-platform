@@ -1,0 +1,113 @@
+{
+  "note": "Fictional applications for the permit desk lab. The cities, businesses and applicants don't exist; no person is named.",
+  "applications": [
+    {
+      "id": "pa-bakery-0141",
+      "tenant": "port-alder",
+      "business": "Sunrise Bakery",
+      "type": "bakery",
+      "zone": "C-2",
+      "staff": 4,
+      "foodHandlerCertificate": true,
+      "signSquareMetres": 1.5,
+      "hours": "6 am to 6 pm",
+      "applicant": "applicant on file"
+    },
+    {
+      "id": "pa-foodtruck-0187",
+      "tenant": "port-alder",
+      "business": "Rolling Dough",
+      "type": "mobile food vendor",
+      "zone": "C-2",
+      "staff": 2,
+      "foodHandlerCertificate": true,
+      "signSquareMetres": 0,
+      "hours": "11 am to 3 pm",
+      "applicant": "applicant on file"
+    },
+    {
+      "id": "pa-salon-0203",
+      "tenant": "port-alder",
+      "business": "Studio Nine",
+      "type": "personal care salon",
+      "zone": "C-2",
+      "staff": 3,
+      "stateLicences": true,
+      "signSquareMetres": 1.2,
+      "hours": "9 am to 7 pm",
+      "applicant": "applicant on file"
+    },
+    {
+      "id": "pa-bakery-0412",
+      "tenant": "port-alder",
+      "business": "Crumb and Crust",
+      "type": "bakery",
+      "zone": "C-2",
+      "staff": 6,
+      "foodHandlerCertificate": true,
+      "signSquareMetres": 2.4,
+      "hours": "5 am to 1 am",
+      "applicant": "applicant on file"
+    },
+    {
+      "id": "pa-catering-0350",
+      "tenant": "port-alder",
+      "business": "Harbourside Events",
+      "type": "caterer",
+      "zone": "C-2",
+      "staff": 8,
+      "foodHandlerCertificate": true,
+      "kitchen": "shared kitchen under contract, inspected",
+      "largestEventGuests": 250,
+      "applicant": "applicant on file"
+    },
+    {
+      "id": "kb-hardware-0032",
+      "tenant": "kestrel-bay",
+      "business": "Kestrel Hardware",
+      "type": "retail store",
+      "zone": "MU-1",
+      "staff": 6,
+      "sellsFood": false,
+      "flammableGoods": true,
+      "hours": "8 am to 7 pm",
+      "applicant": "applicant on file"
+    },
+    {
+      "id": "kb-cafe-0091",
+      "tenant": "kestrel-bay",
+      "business": "Lantern Café",
+      "type": "café",
+      "zone": "MU-1",
+      "staff": 3,
+      "foodHandlerCertificate": true,
+      "outdoorSeats": 4,
+      "hours": "7 am to 9 pm",
+      "applicant": "applicant on file"
+    },
+    {
+      "id": "kb-cafe-0144",
+      "tenant": "kestrel-bay",
+      "business": "The Tide Café",
+      "type": "café",
+      "zone": "MU-1",
+      "staff": 3,
+      "foodHandlerCertificate": true,
+      "outdoorSeats": 6,
+      "hours": "7 am to 8 pm",
+      "applicant": "applicant on file"
+    },
+    {
+      "id": "kb-cafe-0077",
+      "tenant": "kestrel-bay",
+      "business": "Harbor Beans",
+      "type": "café",
+      "zone": "MU-1",
+      "staff": 4,
+      "foodHandlerCertificate": true,
+      "outdoorSeats": 12,
+      "hours": "7 am to 10 pm",
+      "applicant": "applicant on file"
+    }
+  ]
+}

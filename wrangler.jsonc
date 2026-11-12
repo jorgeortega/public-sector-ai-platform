@@ -1,0 +1,8 @@
+// Only for `npm run index -- --embedder workers-ai`: wrangler's proxy of the
+// AI binding, so the build embeds with bge-m3 on the logged-in account.
+// Nothing here is deployed.
+{
+  "name": "public-sector-ai-platform-index",
+  "compatibility_date": "2026-10-01",
+  "ai": { "binding": "AI" }
+}

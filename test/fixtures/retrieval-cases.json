@@ -1,0 +1,59 @@
+{
+  "note": "One golden query per fictional application, as the retrieve step would ask it, with the sections a correct decision cites. Paraphrases test the vectors; section terms test BM25.",
+  "cases": [
+    {
+      "application": "pa-bakery-0141",
+      "tenant": "port-alder",
+      "query": "bakery in zone C-2 with 4 staff, a food handler certificate and a 1.5 square metre sign",
+      "expect": ["pac-5.12.010", "pac-17.20.030", "pac-5.12.060", "pac-17.40.110"]
+    },
+    {
+      "application": "pa-foodtruck-0187",
+      "tenant": "port-alder",
+      "query": "food truck selling lunch in a commercial zone, two staff with a food handler certificate",
+      "expect": ["pac-5.12.040", "pac-5.12.010", "pac-5.12.060"]
+    },
+    {
+      "application": "pa-salon-0203",
+      "tenant": "port-alder",
+      "query": "nail and hair salon in zone C-2, staff hold state licences, small sign",
+      "expect": ["pac-5.20.010", "pac-17.20.030", "pac-17.40.110"]
+    },
+    {
+      "application": "pa-bakery-0412",
+      "tenant": "port-alder",
+      "query": "bakery open until 1 am with a 2.4 square metre sign in zone C-2",
+      "expect": ["pac-17.20.050", "pac-17.40.110", "pac-5.12.010"]
+    },
+    {
+      "application": "pa-catering-0350",
+      "tenant": "port-alder",
+      "query": "caterer using a shared inspected kitchen, events of 250 guests",
+      "expect": ["pac-5.12.080", "pac-5.12.010"]
+    },
+    {
+      "application": "kb-hardware-0032",
+      "tenant": "kestrel-bay",
+      "query": "hardware store in mixed-use zone MU-1 selling paint, no food",
+      "expect": ["kbc-6.02.010", "kbc-18.10.015"]
+    },
+    {
+      "application": "kb-cafe-0091",
+      "tenant": "kestrel-bay",
+      "query": "coffee shop with 4 sidewalk seats in MU-1, open until 9 pm",
+      "expect": ["kbc-6.04.020", "kbc-6.04.050", "kbc-18.10.015"]
+    },
+    {
+      "application": "kb-cafe-0144",
+      "tenant": "kestrel-bay",
+      "query": "can a café put six tables outside on the pavement in the mixed-use zone",
+      "expect": ["kbc-6.04.020", "kbc-6.04.050", "kbc-18.10.015"]
+    },
+    {
+      "application": "kb-cafe-0077",
+      "tenant": "kestrel-bay",
+      "query": "café wants 12 outdoor seats on the sidewalk in MU-1, open until 10 pm",
+      "expect": ["kbc-6.04.050", "kbc-6.04.020", "kbc-18.10.015"]
+    }
+  ]
+}
