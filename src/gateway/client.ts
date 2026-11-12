@@ -59,11 +59,11 @@ export async function ensureTeams(gateway: Gateway, masterKey: string): Promise<
 }
 
 // A key for one run, in its city's team, with the run's own budget.
-export async function createRunKey(gateway: Gateway, masterKey: string, { tenant, run }: { tenant: Tenant; run: string }): Promise<string> {
+export async function createRunKey(gateway: Gateway, masterKey: string, { tenant, run, maxBudget = RUN_KEY.maxBudget }: { tenant: Tenant; run: string; maxBudget?: number }): Promise<string> {
   const response = await call(gateway, '/key/generate', masterKey, {
     team_id: tenant,
     key_alias: run,
-    max_budget: RUN_KEY.maxBudget,
+    max_budget: maxBudget,
     duration: RUN_KEY.duration,
     models: Object.keys(MODELS),
     metadata: { run },

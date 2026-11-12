@@ -15,8 +15,8 @@ Every step is recorded as an event that the Labs page animates.
 
 Status: **in progress, private.** The plan and specs are in the Latitude 10
 repo, under `docs/superpowers/specs/2026-11-1*-ai-platform-*.md`. This repo
-holds the modules that run outside the site; so far, those are `rag` and
-`llm-gateway`.
+holds the modules that run outside the site; so far, those are `rag`,
+`llm-gateway` and `engine`.
 
 ## Retrieval (`src/rag`)
 
@@ -56,8 +56,11 @@ one:
 | `@cf/baai/bge-m3` | Workers AI, 1,024 dimensions, the real one | `npm run index -- --embedder workers-ai`, through wrangler's proxy of the AI binding (`wrangler.jsonc`), on the logged-in account. The corpus is under 2,000 tokens. |
 | `hash-256` | Feature hashing of words and word pairs: deterministic, offline, no sense of meaning | `npm run index` |
 
-The committed index is `bge-m3`, built on 2026-11-13 by the owner's
-`workers-ai` run. A published replay must come from a `bge-m3` index.
+The committed index is `hash-256` again, since 2026-11-13. The planted note
+was rewritten (see "The planted note"), so the owner's `bge-m3` index went
+stale. Run `npm run index -- --embedder workers-ai` to rebuild it. A
+published replay must come from a `bge-m3` index, and the trigger.dev task
+refuses to run on a `hash-256` one.
 
 ### Retrieval, measured
 
@@ -67,11 +70,23 @@ application). Measured on 2026-11-13:
 
 | Index | BM25 alone | Vectors alone | Hybrid |
 |---|---|---|---|
-| `hash-256` | 0.935 | 0.898 | 0.898 |
-| `bge-m3` | 0.935 | 0.880 | 0.935 |
+| `hash-256` | 0.861 | 0.898 | 0.898 |
+| `bge-m3` (before the note was rewritten) | 0.935 | 0.880 | 0.935 |
 
-**What it shows.** On this corpus, hybrid search matches keywords but
-doesn't beat them, even with real embeddings:
+### The planted note
+
+The planted note was rewritten to be retrieved. Before, it ranked 8th
+(hash) and 6th (bge-m3) for its own café's search, so the `poisoned-doc`
+scenario never saw it. Now it's full of the words a café's search uses, the
+way an attacker would write it, and it ranks 3rd.
+
+**Effect on keyword search.** Keyword search alone dropped from 0.935 to
+0.861: the note crowds a real section out of the top 5. Hybrid held at
+0.898. Under an adversarial document, fusing in the vectors earns its
+place.
+
+**Before the rewrite**, on the earlier corpus, hybrid search matched
+keywords but didn't beat them, even with real embeddings:
 - `bge-m3` alone finds less than BM25, and fusing the two keeps BM25's
   score;
 - the corpus is small and written in the same words the queries use, which
@@ -88,6 +103,40 @@ doesn't beat them, even with real embeddings:
 **The floors.** The test holds a floor at the measured value: 0.89 for
 `hash-256` and 0.93 for `bge-m3`. The query vectors are in
 `test/fixtures/queries.json`, written by the same build as the index.
+
+## Engine (`src/sdk`, `src/permit`, `src/runtime`, `src/trigger`)
+
+The permit workflow is written on a small workflow SDK. The SDK emits every
+event the Labs page plays, so a workflow is only its logic:
+- `ctx.step()`: durable steps, checkpointed and skipped on resume, retried
+  1 s, 2 s, 4 s;
+- `ctx.llm()`: the gateway with the run's own key, answers parsed as JSON
+  with one retry;
+- `ctx.search()`: the asking city's code only, with the quarantine;
+- `ctx.registry()`: the fictional outside API;
+- `ctx.approval()`: a waitpoint;
+- `ctx.claim()`: a side effect once per run.
+
+**Two runtimes run the same workflow:**
+- **In memory** (`src/runtime/memory.ts`): a virtual clock, a queue per city
+  running five at once, crash and resume, and a second delivery refused by
+  an idempotency key. It uses a deterministic fake model and the real search
+  over a hash index. `test/engine.test.ts` runs all nine scenarios this way
+  and checks the same golden facts as the site's fixtures.
+- **trigger.dev** (`src/trigger/permit.ts`, `trigger.config.ts`): the real
+  gateway, bge-m3 search and a real approval token. It typechecks, but it
+  hasn't run yet. Its first run on the owner's project is meant to confirm
+  that metadata survives a retry (the checkpoints live there) and that
+  per-city concurrency holds.
+
+**One Python step.** `python/validate_fields.py`, standard library only,
+checks the fields the model extracted. A TypeScript copy of its rules runs
+where `python3` isn't available, and a test keeps the two equal.
+
+**Faults** come only from `src/permit/scenarios.ts`, never from visitor input.
+The `budget` scenario gives its run a $0.0005 key, so the gateway, not the
+engine, refuses the looping call. At Claude Haiku 5.5's prices, a $0.01
+budget would never be reached before the engine's 12-call limit.
 
 ## LLM gateway (`gateway/`, `src/gateway`)
 
