@@ -56,11 +56,10 @@ one:
 | `@cf/baai/bge-m3` | Workers AI, 1,024 dimensions, the real one | `npm run index -- --embedder workers-ai`, through wrangler's proxy of the AI binding (`wrangler.jsonc`), on the logged-in account. The corpus is under 2,000 tokens. |
 | `hash-256` | Feature hashing of words and word pairs: deterministic, offline, no sense of meaning | `npm run index` |
 
-The committed index is `hash-256` again, since 2026-11-13. The planted note
-was rewritten (see "The planted note"), so the owner's `bge-m3` index went
-stale. Run `npm run index -- --embedder workers-ai` to rebuild it. A
-published replay must come from a `bge-m3` index, and the trigger.dev task
-refuses to run on a `hash-256` one.
+The committed index is `bge-m3`, rebuilt by the owner on 2026-11-13 after
+the planted note was rewritten. A published replay must come from a
+`bge-m3` index, and the trigger.dev task refuses to run on a `hash-256`
+one.
 
 ### Retrieval, measured
 
@@ -71,7 +70,8 @@ application). Measured on 2026-11-13:
 | Index | BM25 alone | Vectors alone | Hybrid |
 |---|---|---|---|
 | `hash-256` | 0.861 | 0.898 | 0.898 |
-| `bge-m3` (before the note was rewritten) | 0.935 | 0.880 | 0.935 |
+| `bge-m3` | 0.861 | 0.880 | **0.898** |
+| `bge-m3`, before the note was rewritten | 0.935 | 0.880 | 0.935 |
 
 ### The planted note
 
@@ -81,9 +81,12 @@ scenario never saw it. Now it's full of the words a café's search uses, the
 way an attacker would write it, and it ranks 3rd.
 
 **Effect on keyword search.** Keyword search alone dropped from 0.935 to
-0.861: the note crowds a real section out of the top 5. Hybrid held at
-0.898. Under an adversarial document, fusing in the vectors earns its
-place.
+0.861: the note crowds a real section out of the top 5.
+
+**Effect on hybrid search.** With `bge-m3`, hybrid (0.898) now beats both
+keywords (0.861) and vectors alone (0.880). Under an adversarial document,
+fusion earns its place. The misses are the two bakeries' PAC 5.12.010 and
+`kb-cafe-0077`'s KBC 6.04.020.
 
 **Before the rewrite**, on the earlier corpus, hybrid search matched
 keywords but didn't beat them, even with real embeddings:
