@@ -10,6 +10,8 @@ export default defineConfig({
   dirs: ['./src/trigger'],
   maxDuration: 900,
   build: {
-    extensions: [pythonExtension({ scripts: ['./python/**/*.py'] })],
+    // In dev, the extension runs `python` unless told otherwise; macOS has
+    // only `python3`. Set DEV_PYTHON_BINARY to use another.
+    extensions: [pythonExtension({ scripts: ['./python/**/*.py'], devPythonBinaryPath: process.env.DEV_PYTHON_BINARY ?? 'python3' })],
   },
 });
