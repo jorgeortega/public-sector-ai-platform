@@ -103,7 +103,7 @@ const attempts = await runEvals(cases, services, {
   ...(sessionId && { sessionId }),
   onAttempt: async (a) => {
     const marks = METRICS.map((m) => (a.scores[m] === null ? '·' : a.scores[m] ? '✓' : '✗')).join('');
-    console.log(`  ${marks} ${a.case} #${a.attempt}: ${a.decision ?? 'no decision'} (expected ${a.expected.decision}) $${a.costUsd.toFixed(4)} ${(a.ms / 1000).toFixed(1)} s${a.notes.length ? ` · ${a.notes.join('; ')}` : ''}`);
+    console.log(`  ${marks} ${a.case} #${a.attempt}: ${a.decision ?? 'no decision'} (expected ${a.expected.decision}) $${a.costUsd.toFixed(4)} ${(a.ms / 1000).toFixed(1)} s${a.guarded ? ' · guarded: the model approved over an unmet rule' : ''}${a.notes.length ? ` · ${a.notes.join('; ')}` : ''}`);
     if (scores && a.traceSeed) {
       const traceId = await createTraceId(a.traceSeed);
       for (const m of METRICS) {

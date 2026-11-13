@@ -92,6 +92,9 @@ describe('the runner, on the fake model and the hash index', async () => {
     expect(summary.cases).toBe(GOLDEN.length);
     expect(summary.metrics.find((m) => m.id === 'retrieval')!.total).toBe(2 * GOLDEN.filter((c) => c.restsOn.length).length);
     expect(summary.flaky).toEqual([]);
+    // The fake model never approves over an unmet rule.
+    expect(summary.guarded).toBe(0);
+    expect(attempts.every((a) => a.guarded === false)).toBe(true);
     expect(format(summary, attempts)).toMatch(/^20 cases, 40 attempts, \$0\.\d{4}, p50 \d+\.\d s\n {2}decision/);
   });
 

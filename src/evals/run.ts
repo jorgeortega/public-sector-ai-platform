@@ -31,6 +31,9 @@ export type Attempt = {
   decision?: Decision;
   citations: string[];
   dropped: string[];
+  // The workflow's guard turned the model's approve into refer: the
+  // decision scored is the platform's, and this says the model's differed.
+  guarded: boolean;
   retrieved: string[];
   extracted?: Record<string, unknown>;
   scores: Scores;
@@ -54,6 +57,7 @@ export type RunOptions = {
 };
 
 const DROPPED = /^The model cited (\S+), which it may not/;
+const GUARDED = /^The model recommended approve over unmet /;
 // The events' run id format: `run_` and 8 to 24 lowercase letters and digits.
 export const runId = (c: GoldenCase, attempt: number) => `run_ev${c.application.id.replace(/-/g, '')}${attempt}`;
 
@@ -133,6 +137,7 @@ export async function runAttempt(c: GoldenCase, attempt: number, services: EvalS
     .events()
     .flatMap((event) => (event.type === 'log' ? [DROPPED.exec(event.msg)?.[1]] : []))
     .filter((id): id is string => Boolean(id));
+  const guarded = sink.events().some((event) => event.type === 'log' && GUARDED.test(event.msg));
   const seen: Observed = {
     ...(recommendation && { decision: recommendation.decision }),
     citations: recommendation?.citations ?? [],
@@ -147,6 +152,7 @@ export async function runAttempt(c: GoldenCase, attempt: number, services: EvalS
     attempt,
     expected: { decision: c.decision, restsOn: c.restsOn, neverCite: c.neverCite },
     ...seen,
+    guarded,
     scores,
     notes: error ? [error, ...notes] : notes,
     models: [...usage.models],
@@ -184,6 +190,8 @@ export type Summary = {
   // Cases that passed the decision on some attempts and failed it on others.
   flaky: string[];
   misses: { case: string; attempt: number; metric: Metric; notes: string[] }[];
+  // Attempts whose approve the workflow's guard turned into refer.
+  guarded: number;
   costUsd: number;
   p50Ms: number;
   models: Record<string, number>;
@@ -213,6 +221,7 @@ export function summarize(attempts: readonly Attempt[]): Summary {
     metrics,
     flaky,
     misses,
+    guarded: attempts.filter((a) => a.guarded).length,
     costUsd: Math.round(attempts.reduce((sum, a) => sum + a.costUsd, 0) * 1e6) / 1e6,
     p50Ms: median(attempts.map((a) => a.ms)),
     models,
@@ -225,6 +234,7 @@ export function format(summary: Summary, attempts: readonly Attempt[]): string {
   const lines = [`${summary.cases} cases, ${summary.attempts} attempts, $${summary.costUsd.toFixed(4)}, p50 ${(summary.p50Ms / 1000).toFixed(1)} s`];
   for (const m of summary.metrics) lines.push(`  ${m.id.padEnd(11)} ${String(m.pass).padStart(3)}/${String(m.total).padEnd(3)} ${pct(m.pass, m.total)}`);
   if (summary.flaky.length) lines.push(`  flaky: ${summary.flaky.join(', ')}`);
+  if (summary.guarded) lines.push(`  guarded: ${summary.guarded} approve${summary.guarded === 1 ? '' : 's'} over an unmet rule turned into refer by the workflow (${attempts.filter((a) => a.guarded).map((a) => `${a.case} #${a.attempt}`).join(', ')})`);
   const missed = attempts.filter((a) => METRICS.some((m) => a.scores[m] === false));
   if (missed.length) {
     lines.push('Misses:');
