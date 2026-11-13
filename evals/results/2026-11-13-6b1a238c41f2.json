@@ -1,0 +1,3622 @@
+{
+ "engineCommit": "6b1a238c41f2",
+ "ranAt": "2026-11-13T06:21:14.346Z",
+ "repeat": 3,
+ "cases": [
+  "pa-bakery-0141",
+  "pa-salon-0203",
+  "pa-cafe-0510",
+  "pa-bakery-0522",
+  "pa-catering-0531",
+  "pa-bakery-0412",
+  "pa-retail-0540",
+  "pa-cafe-0548",
+  "pa-bakery-0555",
+  "pa-salon-0562",
+  "pa-catering-0570",
+  "pa-cafe-0577",
+  "kb-cafe-0091",
+  "kb-cafe-0144",
+  "kb-cafe-0610",
+  "kb-retail-0618",
+  "kb-cafe-0077",
+  "kb-cafe-0625",
+  "kb-cafe-0632",
+  "kb-cafe-0640"
+ ],
+ "langfuseSession": "evals-2026-11-13-06-21-14",
+ "summary": {
+  "attempts": 60,
+  "cases": 20,
+  "metrics": [
+   {
+    "id": "decision",
+    "pass": 25,
+    "total": 60
+   },
+   {
+    "id": "citations",
+    "pass": 51,
+    "total": 60
+   },
+   {
+    "id": "retrieval",
+    "pass": 24,
+    "total": 33
+   },
+   {
+    "id": "extraction",
+    "pass": 57,
+    "total": 60
+   }
+  ],
+  "flaky": [
+   "pa-cafe-0510"
+  ],
+  "misses": [
+   {
+    "case": "pa-bakery-0141",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "decided deny, expected approve"
+    ]
+   },
+   {
+    "case": "pa-bakery-0141",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided deny, expected approve"
+    ]
+   },
+   {
+    "case": "pa-bakery-0141",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided deny, expected approve"
+    ]
+   },
+   {
+    "case": "pa-salon-0203",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "pa-salon-0203",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided deny, expected approve"
+    ]
+   },
+   {
+    "case": "pa-salon-0203",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "pa-cafe-0510",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "pa-cafe-0510",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "pa-bakery-0522",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "pa-bakery-0522",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided deny, expected approve"
+    ]
+   },
+   {
+    "case": "pa-bakery-0522",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided deny, expected approve"
+    ]
+   },
+   {
+    "case": "pa-catering-0531",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "decided deny, expected approve"
+    ]
+   },
+   {
+    "case": "pa-catering-0531",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided deny, expected approve"
+    ]
+   },
+   {
+    "case": "pa-catering-0531",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided deny, expected approve"
+    ]
+   },
+   {
+    "case": "pa-bakery-0555",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-bakery-0555",
+    "attempt": 1,
+    "metric": "citations",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-bakery-0555",
+    "attempt": 1,
+    "metric": "retrieval",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-bakery-0555",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-bakery-0555",
+    "attempt": 2,
+    "metric": "citations",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-bakery-0555",
+    "attempt": 2,
+    "metric": "retrieval",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-bakery-0555",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-bakery-0555",
+    "attempt": 3,
+    "metric": "citations",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-bakery-0555",
+    "attempt": 3,
+    "metric": "retrieval",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 1,
+    "metric": "citations",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 1,
+    "metric": "retrieval",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 1,
+    "metric": "extraction",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 2,
+    "metric": "citations",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 2,
+    "metric": "retrieval",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 2,
+    "metric": "extraction",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 3,
+    "metric": "citations",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 3,
+    "metric": "retrieval",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-salon-0562",
+    "attempt": 3,
+    "metric": "extraction",
+    "notes": [
+     "extract gave up (validation)",
+     "search missed pac-5.20.010"
+    ]
+   },
+   {
+    "case": "pa-cafe-0577",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-cafe-0577",
+    "attempt": 1,
+    "metric": "citations",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-cafe-0577",
+    "attempt": 1,
+    "metric": "retrieval",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-cafe-0577",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided approve, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-cafe-0577",
+    "attempt": 2,
+    "metric": "citations",
+    "notes": [
+     "decided approve, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-cafe-0577",
+    "attempt": 2,
+    "metric": "retrieval",
+    "notes": [
+     "decided approve, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-cafe-0577",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-cafe-0577",
+    "attempt": 3,
+    "metric": "citations",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "pa-cafe-0577",
+    "attempt": 3,
+    "metric": "retrieval",
+    "notes": [
+     "decided refer, expected deny",
+     "didn't cite pac-5.12.060",
+     "search missed pac-5.12.060"
+    ]
+   },
+   {
+    "case": "kb-cafe-0091",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-cafe-0091",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-cafe-0091",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-cafe-0144",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-cafe-0144",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-cafe-0144",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-cafe-0610",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-cafe-0610",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-cafe-0610",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-retail-0618",
+    "attempt": 1,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-retail-0618",
+    "attempt": 2,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   },
+   {
+    "case": "kb-retail-0618",
+    "attempt": 3,
+    "metric": "decision",
+    "notes": [
+     "decided refer, expected approve"
+    ]
+   }
+  ],
+  "costUsd": 0.131379,
+  "p50Ms": 22397,
+  "models": {
+   "claude-haiku-5-5": 60
+  }
+ },
+ "attempts": [
+  {
+   "case": "pa-bakery-0141",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Sunrise Bakery",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 1.5,
+    "hours": "6 am to 6 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided deny, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 6,
+   "inTokens": 4886,
+   "outTokens": 4990,
+   "costUsd": 0.0029836,
+   "ms": 28979,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery01411"
+  },
+  {
+   "case": "pa-bakery-0141",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.060",
+    "pac-17.20.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Sunrise Bakery",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 1.5,
+    "hours": "6 am to 6 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided deny, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3919,
+   "outTokens": 4050,
+   "costUsd": 0.0024169,
+   "ms": 24128,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery01412"
+  },
+  {
+   "case": "pa-bakery-0141",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Sunrise Bakery",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 1.5,
+    "hours": "6 am to 6 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided deny, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3999,
+   "outTokens": 3808,
+   "costUsd": 0.0023039,
+   "ms": 22696,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery01413"
+  },
+  {
+   "case": "pa-salon-0203",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-5.20.010",
+    "pac-17.20.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-9.10.020",
+    "pac-17.40.110",
+    "pac-5.20.010"
+   ],
+   "extracted": {
+    "business": "Studio Nine",
+    "type": "personal care salon",
+    "zone": "C-2",
+    "staff": 3,
+    "signSquareMetres": 1.2,
+    "hours": "9 am to 7 pm",
+    "stateLicences": true
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 7,
+   "inTokens": 5019,
+   "outTokens": 5129,
+   "costUsd": 0.0030664,
+   "ms": 28179,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpasalon02031"
+  },
+  {
+   "case": "pa-salon-0203",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.20.010",
+    "pac-17.20.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-9.10.020",
+    "pac-17.40.110",
+    "pac-5.20.010"
+   ],
+   "extracted": {
+    "business": "Studio Nine",
+    "type": "personal care salon",
+    "zone": "C-2",
+    "staff": 3,
+    "signSquareMetres": 1.2,
+    "hours": "9 am to 7 pm",
+    "stateLicences": true
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided deny, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3953,
+   "outTokens": 4245,
+   "costUsd": 0.0025178,
+   "ms": 23598,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpasalon02032"
+  },
+  {
+   "case": "pa-salon-0203",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-5.20.010",
+    "pac-17.20.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-9.10.020",
+    "pac-17.40.110",
+    "pac-5.20.010"
+   ],
+   "extracted": {
+    "business": "Studio Nine",
+    "type": "personal care salon",
+    "zone": "C-2",
+    "staff": 3,
+    "signSquareMetres": 1.2,
+    "hours": "9 am to 7 pm",
+    "stateLicences": true
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3971,
+   "outTokens": 3748,
+   "costUsd": 0.0022711,
+   "ms": 21036,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpasalon02033"
+  },
+  {
+   "case": "pa-cafe-0510",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "approve",
+   "citations": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-9.10.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.050",
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-9.10.020"
+   ],
+   "extracted": {
+    "business": "Corner Grind",
+    "type": "café",
+    "zone": "C-2",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 1,
+    "hours": "7 am to 7 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3928,
+   "outTokens": 3964,
+   "costUsd": 0.0023748,
+   "ms": 22708,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacafe05101"
+  },
+  {
+   "case": "pa-cafe-0510",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-5.12.060",
+    "pac-17.40.110"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.050",
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-9.10.020"
+   ],
+   "extracted": {
+    "business": "Corner Grind",
+    "type": "café",
+    "zone": "C-2",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 1,
+    "hours": "7 am to 7 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3918,
+   "outTokens": 4001,
+   "costUsd": 0.0023923,
+   "ms": 22591,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacafe05102"
+  },
+  {
+   "case": "pa-cafe-0510",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-5.12.060",
+    "pac-17.40.110",
+    "pac-17.20.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.050",
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-9.10.020"
+   ],
+   "extracted": {
+    "business": "Corner Grind",
+    "type": "café",
+    "zone": "C-2",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 1,
+    "hours": "7 am to 7 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3969,
+   "outTokens": 3888,
+   "costUsd": 0.0023409,
+   "ms": 22407,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacafe05103"
+  },
+  {
+   "case": "pa-bakery-0522",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Seed and Stone Bakery",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 5,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 2,
+    "hours": "6 am to 4 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4004,
+   "outTokens": 4071,
+   "costUsd": 0.0024359,
+   "ms": 23673,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery05221"
+  },
+  {
+   "case": "pa-bakery-0522",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.060",
+    "pac-17.20.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Seed and Stone Bakery",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 5,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 2,
+    "hours": "6 am to 4 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided deny, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4047,
+   "outTokens": 3778,
+   "costUsd": 0.0022937,
+   "ms": 22528,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery05222"
+  },
+  {
+   "case": "pa-bakery-0522",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.060",
+    "pac-17.20.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Seed and Stone Bakery",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 5,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 2,
+    "hours": "6 am to 4 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided deny, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4008,
+   "outTokens": 3575,
+   "costUsd": 0.0021883,
+   "ms": 22127,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery05223"
+  },
+  {
+   "case": "pa-catering-0531",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.080",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-5.12.080",
+    "pac-17.20.050",
+    "pac-5.12.060",
+    "pac-17.20.030",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Tablecloth Catering",
+    "type": "caterer",
+    "zone": "C-2",
+    "staff": 6,
+    "foodHandlerCertificate": true,
+    "largestEventGuests": 120
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided deny, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 7,
+   "inTokens": 5158,
+   "outTokens": 5336,
+   "costUsd": 0.0031838,
+   "ms": 31005,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacatering05311"
+  },
+  {
+   "case": "pa-catering-0531",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.080",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-5.12.080",
+    "pac-17.20.050",
+    "pac-5.12.060",
+    "pac-17.20.030",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Tablecloth Catering",
+    "type": "caterer",
+    "zone": "C-2",
+    "staff": 6,
+    "foodHandlerCertificate": true,
+    "largestEventGuests": 120
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided deny, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4043,
+   "outTokens": 3736,
+   "costUsd": 0.0022723,
+   "ms": 22091,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacatering05312"
+  },
+  {
+   "case": "pa-catering-0531",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.080",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-5.12.080",
+    "pac-17.20.050",
+    "pac-5.12.060",
+    "pac-17.20.030",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Tablecloth Catering",
+    "type": "caterer",
+    "zone": "C-2",
+    "staff": 6,
+    "foodHandlerCertificate": true,
+    "largestEventGuests": 120
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided deny, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 6,
+   "inTokens": 4307,
+   "outTokens": 4141,
+   "costUsd": 0.0025012,
+   "ms": 24835,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacatering05313"
+  },
+  {
+   "case": "pa-bakery-0412",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "pac-17.20.050",
+     "pac-17.40.110"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Crumb and Crust",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 6,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 2.4,
+    "hours": "5 am to 1 am"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4012,
+   "outTokens": 3331,
+   "costUsd": 0.0020667,
+   "ms": 18939,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery04121"
+  },
+  {
+   "case": "pa-bakery-0412",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "pac-17.20.050",
+     "pac-17.40.110"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Crumb and Crust",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 6,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 2.4,
+    "hours": "5 am to 1 am"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4009,
+   "outTokens": 3551,
+   "costUsd": 0.0021764,
+   "ms": 21070,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery04122"
+  },
+  {
+   "case": "pa-bakery-0412",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "pac-17.20.050",
+     "pac-17.40.110"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Crumb and Crust",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 6,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 2.4,
+    "hours": "5 am to 1 am"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3994,
+   "outTokens": 3361,
+   "costUsd": 0.0020799,
+   "ms": 19599,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery04123"
+  },
+  {
+   "case": "pa-retail-0540",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "pac-17.40.110"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-9.10.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-9.10.020",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Inkwell Books",
+    "type": "retail store",
+    "zone": "C-2",
+    "staff": 2,
+    "signSquareMetres": 3.5,
+    "hours": "10 am to 6 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 3,
+   "inTokens": 2228,
+   "outTokens": 1449,
+   "costUsd": 0.0009473,
+   "ms": 9750,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evparetail05401"
+  },
+  {
+   "case": "pa-retail-0540",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "pac-17.40.110"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.40.110",
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-9.10.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.050",
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-9.10.020",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Inkwell Books",
+    "type": "retail",
+    "zone": "C-2",
+    "staff": 2,
+    "signSquareMetres": 3.5,
+    "hours": "10 am to 6 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 3,
+   "inTokens": 2276,
+   "outTokens": 1361,
+   "costUsd": 0.0009081,
+   "ms": 9193,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evparetail05402"
+  },
+  {
+   "case": "pa-retail-0540",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "pac-17.40.110"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.40.110",
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-9.10.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-9.10.020",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Inkwell Books",
+    "type": "retail store",
+    "zone": "C-2",
+    "staff": 2,
+    "signSquareMetres": 3.5,
+    "hours": "10 am to 6 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3981,
+   "outTokens": 3171,
+   "costUsd": 0.0019836,
+   "ms": 18936,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evparetail05403"
+  },
+  {
+   "case": "pa-cafe-0548",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "pac-17.20.050"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.050",
+    "pac-17.20.030",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Night Owl Café",
+    "type": "café",
+    "zone": "C-2",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 1,
+    "hours": "7 am to 2 am"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3982,
+   "outTokens": 3207,
+   "costUsd": 0.0020017,
+   "ms": 19158,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacafe05481"
+  },
+  {
+   "case": "pa-cafe-0548",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "pac-17.20.050"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.050",
+    "pac-17.20.030",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Night Owl Café",
+    "type": "café",
+    "zone": "C-2",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 1,
+    "hours": "7 am to 2 am"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3960,
+   "outTokens": 3318,
+   "costUsd": 0.002055,
+   "ms": 19027,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacafe05482"
+  },
+  {
+   "case": "pa-cafe-0548",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "pac-17.20.050"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.050",
+    "pac-17.20.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.20.050",
+    "pac-17.40.110",
+    "pac-5.12.060",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Night Owl Café",
+    "type": "café",
+    "zone": "C-2",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "signSquareMetres": 1,
+    "hours": "7 am to 2 am"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3967,
+   "outTokens": 3303,
+   "costUsd": 0.0020482,
+   "ms": 20217,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacafe05483"
+  },
+  {
+   "case": "pa-bakery-0555",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.12.060"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.030",
+    "pac-9.10.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-17.20.050",
+    "pac-9.10.020",
+    "pac-1.04.020"
+   ],
+   "extracted": {
+    "business": "Golden Loaf",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 3,
+    "foodHandlerCertificate": false,
+    "signSquareMetres": 1,
+    "hours": "6 am to 2 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": false,
+    "retrieval": false,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected deny",
+    "didn't cite pac-5.12.060",
+    "search missed pac-5.12.060"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3975,
+   "outTokens": 4276,
+   "costUsd": 0.0025355,
+   "ms": 24986,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery05551"
+  },
+  {
+   "case": "pa-bakery-0555",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.12.060"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-9.10.020",
+    "pac-17.20.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-17.20.050",
+    "pac-9.10.020",
+    "pac-1.04.020"
+   ],
+   "extracted": {
+    "business": "Golden Loaf",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 3,
+    "foodHandlerCertificate": false,
+    "signSquareMetres": 1,
+    "hours": "6 am to 2 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": false,
+    "retrieval": false,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected deny",
+    "didn't cite pac-5.12.060",
+    "search missed pac-5.12.060"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4043,
+   "outTokens": 4628,
+   "costUsd": 0.0027183,
+   "ms": 26463,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery05552"
+  },
+  {
+   "case": "pa-bakery-0555",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.12.060"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.030",
+    "pac-9.10.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-17.20.050",
+    "pac-9.10.020",
+    "pac-1.04.020"
+   ],
+   "extracted": {
+    "business": "Golden Loaf",
+    "type": "bakery",
+    "zone": "C-2",
+    "staff": 3,
+    "foodHandlerCertificate": false,
+    "signSquareMetres": 1,
+    "hours": "6 am to 2 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": false,
+    "retrieval": false,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected deny",
+    "didn't cite pac-5.12.060",
+    "search missed pac-5.12.060"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4016,
+   "outTokens": 4475,
+   "costUsd": 0.0026391,
+   "ms": 25691,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpabakery05553"
+  },
+  {
+   "case": "pa-salon-0562",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.20.010"
+    ],
+    "neverCite": []
+   },
+   "citations": [],
+   "dropped": [],
+   "retrieved": [],
+   "scores": {
+    "decision": false,
+    "citations": false,
+    "retrieval": false,
+    "extraction": false
+   },
+   "notes": [
+    "extract gave up (validation)",
+    "search missed pac-5.20.010"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 2,
+   "inTokens": 514,
+   "outTokens": 691,
+   "costUsd": 0.0003969,
+   "ms": 5224,
+   "error": "extract gave up (validation)",
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpasalon05621"
+  },
+  {
+   "case": "pa-salon-0562",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.20.010"
+    ],
+    "neverCite": []
+   },
+   "citations": [],
+   "dropped": [],
+   "retrieved": [],
+   "scores": {
+    "decision": false,
+    "citations": false,
+    "retrieval": false,
+    "extraction": false
+   },
+   "notes": [
+    "extract gave up (validation)",
+    "search missed pac-5.20.010"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 2,
+   "inTokens": 514,
+   "outTokens": 648,
+   "costUsd": 0.0003754,
+   "ms": 5488,
+   "error": "extract gave up (validation)",
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpasalon05622"
+  },
+  {
+   "case": "pa-salon-0562",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.20.010"
+    ],
+    "neverCite": []
+   },
+   "citations": [],
+   "dropped": [],
+   "retrieved": [],
+   "scores": {
+    "decision": false,
+    "citations": false,
+    "retrieval": false,
+    "extraction": false
+   },
+   "notes": [
+    "extract gave up (validation)",
+    "search missed pac-5.20.010"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 2,
+   "inTokens": 514,
+   "outTokens": 651,
+   "costUsd": 0.0003769,
+   "ms": 4895,
+   "error": "extract gave up (validation)",
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpasalon05623"
+  },
+  {
+   "case": "pa-catering-0570",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.12.080"
+    ],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.080",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-5.12.080",
+    "pac-17.20.050",
+    "pac-5.12.060",
+    "pac-17.20.030",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Backyard Feasts",
+    "type": "caterer",
+    "zone": "C-2",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "largestEventGuests": 60
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4003,
+   "outTokens": 3894,
+   "costUsd": 0.0023473,
+   "ms": 23164,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacatering05701"
+  },
+  {
+   "case": "pa-catering-0570",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.12.080"
+    ],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.080"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-5.12.080",
+    "pac-17.20.050",
+    "pac-5.12.060",
+    "pac-17.20.030",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Backyard Feasts",
+    "type": "caterer",
+    "zone": "C-2",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "largestEventGuests": 60
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4017,
+   "outTokens": 3966,
+   "costUsd": 0.0023847,
+   "ms": 22386,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacatering05702"
+  },
+  {
+   "case": "pa-catering-0570",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.12.080"
+    ],
+    "neverCite": []
+   },
+   "decision": "deny",
+   "citations": [
+    "pac-5.12.080",
+    "pac-5.12.060"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-5.12.080",
+    "pac-17.20.050",
+    "pac-5.12.060",
+    "pac-17.20.030",
+    "pac-5.12.040"
+   ],
+   "extracted": {
+    "business": "Backyard Feasts",
+    "type": "caterer",
+    "zone": "C-2",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "largestEventGuests": 60
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4030,
+   "outTokens": 3755,
+   "costUsd": 0.0022805,
+   "ms": 21414,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacatering05703"
+  },
+  {
+   "case": "pa-cafe-0577",
+   "tenant": "port-alder",
+   "attempt": 1,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.12.060"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.030",
+    "pac-17.40.110"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-17.20.050",
+    "pac-9.10.020",
+    "pac-1.04.020"
+   ],
+   "extracted": {
+    "business": "Quayside Cups",
+    "type": "café",
+    "zone": "C-2",
+    "staff": 2,
+    "foodHandlerCertificate": false,
+    "signSquareMetres": 1.5,
+    "hours": "8 am to 5 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": false,
+    "retrieval": false,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected deny",
+    "didn't cite pac-5.12.060",
+    "search missed pac-5.12.060"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4016,
+   "outTokens": 3952,
+   "costUsd": 0.0023776,
+   "ms": 22278,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacafe05771"
+  },
+  {
+   "case": "pa-cafe-0577",
+   "tenant": "port-alder",
+   "attempt": 2,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.12.060"
+    ],
+    "neverCite": []
+   },
+   "decision": "approve",
+   "citations": [
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-17.20.050",
+    "pac-9.10.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-17.20.050",
+    "pac-9.10.020",
+    "pac-1.04.020"
+   ],
+   "extracted": {
+    "business": "Quayside Cups",
+    "type": "café",
+    "zone": "C-2",
+    "staff": 2,
+    "foodHandlerCertificate": false,
+    "signSquareMetres": 1.5,
+    "hours": "8 am to 5 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": false,
+    "retrieval": false,
+    "extraction": true
+   },
+   "notes": [
+    "decided approve, expected deny",
+    "didn't cite pac-5.12.060",
+    "search missed pac-5.12.060"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 4009,
+   "outTokens": 4313,
+   "costUsd": 0.0025574,
+   "ms": 24713,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacafe05772"
+  },
+  {
+   "case": "pa-cafe-0577",
+   "tenant": "port-alder",
+   "attempt": 3,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "pac-5.12.060"
+    ],
+    "neverCite": []
+   },
+   "decision": "refer",
+   "citations": [
+    "pac-17.20.030",
+    "pac-17.40.110"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "pac-17.20.030",
+    "pac-17.40.110",
+    "pac-17.20.050",
+    "pac-9.10.020",
+    "pac-1.04.020"
+   ],
+   "extracted": {
+    "business": "Quayside Cups",
+    "type": "café",
+    "zone": "C-2",
+    "staff": 2,
+    "foodHandlerCertificate": false,
+    "signSquareMetres": 1.5,
+    "hours": "8 am to 5 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": false,
+    "retrieval": false,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected deny",
+    "didn't cite pac-5.12.060",
+    "search missed pac-5.12.060"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 4,
+   "inTokens": 3144,
+   "outTokens": 2903,
+   "costUsd": 0.0017659,
+   "ms": 17245,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evpacafe05773"
+  },
+  {
+   "case": "kb-cafe-0091",
+   "tenant": "kestrel-bay",
+   "attempt": 1,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "extracted": {
+    "business": "Lantern Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 4,
+    "hours": "7 am to 9 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3573,
+   "outTokens": 3978,
+   "costUsd": 0.0023463,
+   "ms": 22937,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe00911"
+  },
+  {
+   "case": "kb-cafe-0091",
+   "tenant": "kestrel-bay",
+   "attempt": 2,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "extracted": {
+    "business": "Lantern Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 4,
+    "hours": "7 am to 9 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3625,
+   "outTokens": 4272,
+   "costUsd": 0.0024985,
+   "ms": 24577,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe00912"
+  },
+  {
+   "case": "kb-cafe-0091",
+   "tenant": "kestrel-bay",
+   "attempt": 3,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050",
+    "kbc-18.10.040"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "extracted": {
+    "business": "Lantern Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 4,
+    "hours": "7 am to 9 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3642,
+   "outTokens": 4478,
+   "costUsd": 0.0026032,
+   "ms": 26603,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe00913"
+  },
+  {
+   "case": "kb-cafe-0144",
+   "tenant": "kestrel-bay",
+   "attempt": 1,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.020",
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-18.10.015"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "The Tide Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 6,
+    "hours": "7 am to 8 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3679,
+   "outTokens": 4080,
+   "costUsd": 0.0024079,
+   "ms": 26946,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe01441"
+  },
+  {
+   "case": "kb-cafe-0144",
+   "tenant": "kestrel-bay",
+   "attempt": 2,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.050",
+    "kbc-6.04.020",
+    "kbc-18.10.040",
+    "kbc-18.10.015"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "The Tide Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 6,
+    "hours": "7 am to 8 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3617,
+   "outTokens": 3947,
+   "costUsd": 0.0023352,
+   "ms": 22643,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe01442"
+  },
+  {
+   "case": "kb-cafe-0144",
+   "tenant": "kestrel-bay",
+   "attempt": 3,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-6.04.020",
+    "kbc-18.10.015"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "The Tide Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 6,
+    "hours": "7 am to 8 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3646,
+   "outTokens": 4070,
+   "costUsd": 0.0023996,
+   "ms": 24662,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe01443"
+  },
+  {
+   "case": "kb-cafe-0610",
+   "tenant": "kestrel-bay",
+   "attempt": 1,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "Driftwood Coffee",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 8,
+    "hours": "7 am to 9 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3632,
+   "outTokens": 4183,
+   "costUsd": 0.0024547,
+   "ms": 24853,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06101"
+  },
+  {
+   "case": "kb-cafe-0610",
+   "tenant": "kestrel-bay",
+   "attempt": 2,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "Driftwood Coffee",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 8,
+    "hours": "7 am to 9 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3656,
+   "outTokens": 4161,
+   "costUsd": 0.0024461,
+   "ms": 24663,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06102"
+  },
+  {
+   "case": "kb-cafe-0610",
+   "tenant": "kestrel-bay",
+   "attempt": 3,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "Driftwood Coffee",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 8,
+    "hours": "7 am to 9 pm"
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3646,
+   "outTokens": 4259,
+   "costUsd": 0.0024941,
+   "ms": 25105,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06103"
+  },
+  {
+   "case": "kb-retail-0618",
+   "tenant": "kestrel-bay",
+   "attempt": 1,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.02.010",
+    "kbc-9.22.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.02.010",
+    "kbc-note-0017",
+    "kbc-9.22.030"
+   ],
+   "extracted": {
+    "business": "Bayside Books",
+    "type": "retail store",
+    "zone": "MU-1",
+    "staff": 3,
+    "hours": "9 am to 6 pm",
+    "sellsFood": false
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3375,
+   "outTokens": 3066,
+   "costUsd": 0.0018705,
+   "ms": 19313,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbretail06181"
+  },
+  {
+   "case": "kb-retail-0618",
+   "tenant": "kestrel-bay",
+   "attempt": 2,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.02.010",
+    "kbc-9.22.030"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.02.010",
+    "kbc-note-0017",
+    "kbc-9.22.030"
+   ],
+   "extracted": {
+    "business": "Bayside Books",
+    "type": "retail store",
+    "zone": "MU-1",
+    "staff": 3,
+    "hours": "9 am to 6 pm",
+    "sellsFood": false
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3366,
+   "outTokens": 3106,
+   "costUsd": 0.0018896,
+   "ms": 19062,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbretail06182"
+  },
+  {
+   "case": "kb-retail-0618",
+   "tenant": "kestrel-bay",
+   "attempt": 3,
+   "expected": {
+    "decision": "approve",
+    "restsOn": [],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.02.010"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.02.010",
+    "kbc-note-0017",
+    "kbc-9.22.030"
+   ],
+   "extracted": {
+    "business": "Bayside Books",
+    "type": "retail store",
+    "zone": "MU-1",
+    "staff": 3,
+    "hours": "9 am to 6 pm",
+    "sellsFood": false
+   },
+   "scores": {
+    "decision": false,
+    "citations": true,
+    "retrieval": null,
+    "extraction": true
+   },
+   "notes": [
+    "decided refer, expected approve"
+   ],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3318,
+   "outTokens": 3103,
+   "costUsd": 0.0018833,
+   "ms": 18226,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbretail06183"
+  },
+  {
+   "case": "kb-cafe-0077",
+   "tenant": "kestrel-bay",
+   "attempt": 1,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "kbc-6.04.050"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.050",
+    "kbc-18.10.040"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.04.050",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "Harbor Beans",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 12,
+    "hours": "7 am to 10 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3642,
+   "outTokens": 3539,
+   "costUsd": 0.0021337,
+   "ms": 21094,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe00771"
+  },
+  {
+   "case": "kb-cafe-0077",
+   "tenant": "kestrel-bay",
+   "attempt": 2,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "kbc-6.04.050"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.050",
+    "kbc-18.10.040",
+    "kbc-6.04.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.04.050",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "Harbor Beans",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 12,
+    "hours": "7 am to 10 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3704,
+   "outTokens": 3890,
+   "costUsd": 0.0023154,
+   "ms": 21781,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe00772"
+  },
+  {
+   "case": "kb-cafe-0077",
+   "tenant": "kestrel-bay",
+   "attempt": 3,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "kbc-6.04.050"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.050",
+    "kbc-6.04.020",
+    "kbc-18.10.040"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.04.050",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "Harbor Beans",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 4,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 12,
+    "hours": "7 am to 10 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3632,
+   "outTokens": 3873,
+   "costUsd": 0.0022997,
+   "ms": 20897,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe00773"
+  },
+  {
+   "case": "kb-cafe-0625",
+   "tenant": "kestrel-bay",
+   "attempt": 1,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "kbc-6.04.050"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.050",
+    "kbc-6.04.020",
+    "kbc-18.10.015"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "extracted": {
+    "business": "Pier Nine Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 9,
+    "hours": "7 am to 9 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3587,
+   "outTokens": 3696,
+   "costUsd": 0.0022067,
+   "ms": 20992,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06251"
+  },
+  {
+   "case": "kb-cafe-0625",
+   "tenant": "kestrel-bay",
+   "attempt": 2,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "kbc-6.04.050"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-6.04.050",
+    "kbc-6.04.020",
+    "kbc-18.10.040"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "extracted": {
+    "business": "Pier Nine Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 9,
+    "hours": "7 am to 9 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3653,
+   "outTokens": 3934,
+   "costUsd": 0.0023323,
+   "ms": 22047,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06252"
+  },
+  {
+   "case": "kb-cafe-0625",
+   "tenant": "kestrel-bay",
+   "attempt": 3,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "kbc-6.04.050"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "extracted": {
+    "business": "Pier Nine Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 9,
+    "hours": "7 am to 9 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3578,
+   "outTokens": 3913,
+   "costUsd": 0.0023143,
+   "ms": 23031,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06253"
+  },
+  {
+   "case": "kb-cafe-0632",
+   "tenant": "kestrel-bay",
+   "attempt": 1,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "kbc-18.10.015"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "extracted": {
+    "business": "Late Lamp Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 4,
+    "hours": "7 am to midnight"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3649,
+   "outTokens": 4014,
+   "costUsd": 0.0023719,
+   "ms": 22493,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06321"
+  },
+  {
+   "case": "kb-cafe-0632",
+   "tenant": "kestrel-bay",
+   "attempt": 2,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "kbc-18.10.015"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "extracted": {
+    "business": "Late Lamp Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 4,
+    "hours": "7 am to midnight"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3643,
+   "outTokens": 3854,
+   "costUsd": 0.0022913,
+   "ms": 21136,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06322"
+  },
+  {
+   "case": "kb-cafe-0632",
+   "tenant": "kestrel-bay",
+   "attempt": 3,
+   "expected": {
+    "decision": "refer",
+    "restsOn": [
+     "kbc-18.10.015"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "refer",
+   "citations": [
+    "kbc-18.10.015",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.015",
+    "kbc-18.10.040",
+    "kbc-6.04.020",
+    "kbc-6.04.050"
+   ],
+   "extracted": {
+    "business": "Late Lamp Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": true,
+    "outdoorSeats": 4,
+    "hours": "7 am to midnight"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3644,
+   "outTokens": 3758,
+   "costUsd": 0.0022434,
+   "ms": 21096,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06323"
+  },
+  {
+   "case": "kb-cafe-0640",
+   "tenant": "kestrel-bay",
+   "attempt": 1,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "kbc-6.04.020"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "deny",
+   "citations": [
+    "kbc-6.04.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.050",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "Gull Point Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": false,
+    "outdoorSeats": 2,
+    "hours": "7 am to 6 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3647,
+   "outTokens": 3546,
+   "costUsd": 0.0021377,
+   "ms": 20802,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06401"
+  },
+  {
+   "case": "kb-cafe-0640",
+   "tenant": "kestrel-bay",
+   "attempt": 2,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "kbc-6.04.020"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "deny",
+   "citations": [
+    "kbc-6.04.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.050",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "Gull Point Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": false,
+    "outdoorSeats": 2,
+    "hours": "7 am to 6 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3644,
+   "outTokens": 3809,
+   "costUsd": 0.0022689,
+   "ms": 23038,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06402"
+  },
+  {
+   "case": "kb-cafe-0640",
+   "tenant": "kestrel-bay",
+   "attempt": 3,
+   "expected": {
+    "decision": "deny",
+    "restsOn": [
+     "kbc-6.04.020"
+    ],
+    "neverCite": [
+     "kbc-note-0017"
+    ]
+   },
+   "decision": "deny",
+   "citations": [
+    "kbc-6.04.020"
+   ],
+   "dropped": [],
+   "retrieved": [
+    "kbc-note-0017",
+    "kbc-18.10.040",
+    "kbc-18.10.015",
+    "kbc-6.04.050",
+    "kbc-6.04.020"
+   ],
+   "extracted": {
+    "business": "Gull Point Café",
+    "type": "café",
+    "zone": "MU-1",
+    "staff": 3,
+    "foodHandlerCertificate": false,
+    "outdoorSeats": 2,
+    "hours": "7 am to 6 pm"
+   },
+   "scores": {
+    "decision": true,
+    "citations": true,
+    "retrieval": true,
+    "extraction": true
+   },
+   "notes": [],
+   "models": [
+    "claude-haiku-5-5"
+   ],
+   "calls": 5,
+   "inTokens": 3650,
+   "outTokens": 3808,
+   "costUsd": 0.002269,
+   "ms": 22425,
+   "traceSeed": "evals-2026-11-13-06-21-14:run_evkbcafe06403"
+  }
+ ]
+}
