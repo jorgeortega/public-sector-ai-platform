@@ -14,7 +14,7 @@ import { Context, newStore, type Store } from '../sdk/context.ts';
 import { Emitter, Sink } from '../sdk/emitter.ts';
 import { BudgetStop, StepFailed } from '../sdk/errors.ts';
 import { endedBy, traceRun } from '../sdk/trace.ts';
-import type { Clock, RunInput, Services } from '../sdk/types.ts';
+import type { Clock, RunInput, RunModel, Services } from '../sdk/types.ts';
 import { environmentName, startLangfuse } from '../tracing/langfuse.ts';
 
 // The permit workflow on trigger.dev (spec docs/superpowers/specs/
@@ -135,9 +135,13 @@ export const permitRun = task({
     const masterKey = env('LITELLM_MASTER_KEY');
     const index = loadIndex(saved);
     const maxBudget = faults.runBudgetUsd ?? RUN_KEY.maxBudget;
-    const key = await createRunKey(gateway, masterKey, { tenant: input.tenant, run: input.run, maxBudget });
     const services: Services = {
-      model: async () => ({ keyTail: keyTail(key), limitUsd: maxBudget, chat: (call) => chat(gateway, key, call), close: () => deleteKey(gateway, masterKey, key) }),
+      model: async () => {
+        // The first call of a run: it wakes the gateway's container if it
+        // sleeps (about 60 s), so it's traced as its own step.
+        const key = await createRunKey(gateway, masterKey, { tenant: input.tenant, run: input.run, maxBudget });
+        return { keyTail: keyTail(key), limitUsd: maxBudget, chat: (call) => chat(gateway, key, call), close: () => deleteKey(gateway, masterKey, key) };
+      },
       search: async (tenant, query, k) => {
         const started = Date.now();
         const hits = search(index, query, { tenant, queryVector: await embedQuery(query), k });
@@ -162,7 +166,7 @@ export const permitRun = task({
         return result.ok ? { decision: result.output.decision, by: 'visitor', waitMs: 0 } : { decision: 'reject', by: 'timeout', waitMs: 0 };
       },
     };
-    const model = await services.model(input, maxBudget);
+    let model: RunModel | undefined;
     let context: Context | undefined;
     try {
       const sessionId = `${input.scenario}-${payload.scenarioStartedAt}`;
@@ -183,7 +187,14 @@ export const permitRun = task({
         async (root) => {
           // The Langfuse trace, for the site's console to link to.
           if (tracing && root.traceId) metadata.set('langfuseTraceId', root.traceId);
-          context = new Context({ input, emit, clock, services, store: metadataStore(), faults, worker, firstWorker: first, model, trace: root });
+          const runModel = (model = await root.within(
+            'create-run-key',
+            'tool',
+            { input: { tenant: input.tenant, maxBudgetUsd: maxBudget } },
+            () => services.model(input, maxBudget),
+            (made) => ({ output: { key: `…${made.keyTail}`, limitUsd: made.limitUsd } }),
+          ));
+          context = new Context({ input, emit, clock, services, store: metadataStore(), faults, worker, firstWorker: first, model: runModel, trace: root });
           return planned.kind === 'renewal' ? await renewal(context, input.application) : await permit(context, application(input.application), faults);
         },
         (result) => ({ output: { outcome: result, ...context?.result }, metadata: { spentUsd: context?.usage.spent ?? 0, modelCalls: context?.usage.calls ?? 0 } }),
@@ -206,7 +217,7 @@ export const permitRun = task({
       emit.emit('worker.crashed', { worker: worker as never });
       throw error;
     } finally {
-      await model.close().catch(() => {});
+      await model?.close().catch(() => {});
       await tracing?.flush().catch(() => {});
     }
   },

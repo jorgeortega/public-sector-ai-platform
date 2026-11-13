@@ -174,6 +174,7 @@ read 2026-11-13:
 
 ```
 review-permit-application        agent       input: the letter; output: the decision
+├─ create-run-key                tool        trigger.dev only: wakes the gateway (~60 s cold)
 ├─ receive-application           span
 ├─ extract-fields                span
 │  ├─ read-application-letter    generation  model, tokens, the gateway's cost
