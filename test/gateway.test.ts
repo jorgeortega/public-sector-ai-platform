@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { parse } from 'yaml';
 import worker, { type Env } from '../gateway/worker.ts';
 import { GatewayError, chat, createRunKey, deleteKey, ensureTeams, keyTail } from '../src/gateway/client.ts';
-import { FALLBACKS, MODELS, RUN_KEY, TEAMS, costOf, isForwarded } from '../src/gateway/config.ts';
+import { DOWN, FALLBACKS, MODELS, RUN_KEY, TEAMS, costOf, isForwarded } from '../src/gateway/config.ts';
 
 // The gateway's configs agree with src/gateway/config.ts, the Worker forwards
 // only what it should, and the client reads LiteLLM's answers. The proof
@@ -20,10 +20,10 @@ describe.each([
   ['production', prod],
   ['local', local],
 ])('the %s config', (_, config) => {
-  it('lists exactly the table’s models, at the table’s prices', () => {
-    expect(config.model_list.map((entry) => entry.model_name).sort()).toEqual(Object.keys(MODELS).sort());
+  it('lists exactly the table’s models, at the table’s prices, and the down route', () => {
+    expect(config.model_list.map((entry) => entry.model_name).sort()).toEqual([...Object.keys(MODELS), DOWN].sort());
     for (const entry of config.model_list) {
-      const price = MODELS[entry.model_name as keyof typeof MODELS];
+      const price = MODELS[(entry.model_name === DOWN ? 'claude-haiku-5-5' : entry.model_name) as keyof typeof MODELS];
       expect(entry.litellm_params.input_cost_per_token).toBeCloseTo(price.input, 12);
       expect(entry.litellm_params.output_cost_per_token).toBeCloseTo(price.output, 12);
     }
@@ -39,6 +39,11 @@ describe.each([
 describe('the production config', () => {
   it('reads every credential from the environment, and leaves tracing to the engine', () => {
     for (const entry of prod.model_list) {
+      // The down route reaches nothing: a closed loopback port, no key.
+      if (entry.model_name === DOWN) {
+        expect(entry.litellm_params).toMatchObject({ api_base: 'http://127.0.0.1:9/v1', api_key: 'none' });
+        continue;
+      }
       expect(String(entry.litellm_params.api_key)).toMatch(/^os\.environ\//);
       if ('api_base' in entry.litellm_params) expect(String(entry.litellm_params.api_base)).toMatch(/^os\.environ\//);
     }

@@ -15,7 +15,14 @@ export const MODELS = {
 export type ModelName = keyof typeof MODELS;
 
 export const PRIMARY: ModelName = 'claude-haiku-5-5';
-export const FALLBACKS: Record<string, ModelName[]> = { 'claude-haiku-5-5': ['gpt-oss-120b'] };
+// The `provider-down` scenario's route (engine spec E7): its only model
+// points at a closed port in the container, so every call fails at once,
+// costs nothing, and really falls back.
+export const DOWN = 'claude-haiku-5-5-down';
+export const FALLBACKS: Record<string, ModelName[]> = { 'claude-haiku-5-5': ['gpt-oss-120b'], [DOWN]: ['gpt-oss-120b'] };
+
+// What a team and a run key may call: the models, and the down route.
+export const ALLOWED = [...Object.keys(MODELS), DOWN];
 
 // One team per city; together they are this lab's $5 a month inside the
 // `labs` workspace's $10 (the other $5 is the LangGraph lab's).

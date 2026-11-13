@@ -1,4 +1,4 @@
-import { FALLBACKS, MODELS, RUN_KEY, TEAMS, type ModelName, type Tenant } from './config.ts';
+import { ALLOWED, FALLBACKS, MODELS, RUN_KEY, TEAMS, type ModelName, type Tenant } from './config.ts';
 
 // The engine's side of the gateway: make sure the two cities' teams exist,
 // make a key for each run, call a model, delete the key. Plain fetch; the
@@ -45,7 +45,7 @@ async function call(gateway: Gateway, path: string, key: string, body: unknown):
 
 // Creates the two teams, or updates them to the budgets in config.ts.
 export async function ensureTeams(gateway: Gateway, masterKey: string): Promise<Tenant[]> {
-  const models = Object.keys(MODELS);
+  const models = ALLOWED;
   for (const [teamId, team] of Object.entries(TEAMS)) {
     const body = { team_id: teamId, team_alias: team.alias, max_budget: team.maxBudget, budget_duration: team.budgetDuration, models };
     try {
@@ -65,7 +65,7 @@ export async function createRunKey(gateway: Gateway, masterKey: string, { tenant
     key_alias: run,
     max_budget: maxBudget,
     duration: RUN_KEY.duration,
-    models: Object.keys(MODELS),
+    models: ALLOWED,
     metadata: { run },
   });
   const { key } = (await response.json()) as { key: string };
@@ -100,7 +100,7 @@ export async function chat(gateway: Gateway, key: string, { model, messages, max
   return {
     content: body.choices[0]?.message.content ?? '',
     model: served,
-    ...(fallbacks > 0 && { fallbackFrom: model }),
+    ...(fallbacks > 0 && { fallbackFrom: asModel(model) }),
     inTokens: body.usage.prompt_tokens,
     outTokens: body.usage.completion_tokens,
     costUsd: Number(response.headers.get('x-litellm-response-cost') ?? 0),

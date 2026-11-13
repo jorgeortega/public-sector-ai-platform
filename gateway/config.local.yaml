@@ -18,8 +18,17 @@ model_list:
       input_cost_per_token: 0.00000035
       output_cost_per_token: 0.00000075
 
+  # provider-down's route: a closed port, so the call fails and falls back.
+  - model_name: claude-haiku-5-5-down
+    litellm_params:
+      model: openai/unreachable
+      api_base: http://127.0.0.1:9/v1
+      api_key: none
+      input_cost_per_token: 0.0000001
+      output_cost_per_token: 0.0000005
+
 router_settings:
-  fallbacks: [{ "claude-haiku-5-5": ["gpt-oss-120b"] }]
+  fallbacks: [{ "claude-haiku-5-5": ["gpt-oss-120b"] }, { "claude-haiku-5-5-down": ["gpt-oss-120b"] }]
   num_retries: 0
   timeout: 30
 
