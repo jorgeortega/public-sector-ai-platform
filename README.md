@@ -268,6 +268,15 @@ first time.
 
 ### Deploying (owner)
 
+**Deployed 2026-11-13** at `https://permit-desk-gateway.jorgeortega.workers.dev`,
+image v1.106.6, with the city teams created. A $0.01 run key reached both
+models, and the cost was reported at list price.
+- **The first boot** took about three minutes, while LiteLLM migrated its
+  tables in Neon.
+- **A cold start** after the two-minute sleep takes about 60 s, so the
+  Worker now waits up to two minutes for readiness.
+
+
 1. **Accounts:** a Neon Free project and a Langfuse Hobby project.
    - The repo is linked to the Neon project `snowy-sun-31820672` (with
      `neon init`; `neon.ts`, and `.neon` is gitignored). `neon env pull`
@@ -290,6 +299,8 @@ first time.
    - `CLOUDFLARE_AI_TOKEN`;
    - `WORKERS_AI_BASE_URL`
      (`https://api.cloudflare.com/client/v4/accounts/<id>/ai/v1`).
+
+   `DATABASE_URL` takes the value of `.env`'s `DATABASE_URL_UNPOOLED`.
 
    The gateway sends nothing to Langfuse: the engine does (see Tracing).
 3. **Deploy:** `npx wrangler deploy -c gateway/wrangler.jsonc`. Docker must

@@ -21,8 +21,10 @@ export interface Env {
 const PORT = 4000;
 const SLEEP_AFTER_MS = 2 * 60 * 1000;
 const HEALTH = 'http://container/health/liveliness';
-// LiteLLM checks its database schema on start; give it up to a minute.
-const READY_TRIES = 120;
+// LiteLLM checks its database schema on start. Measured on 2026-11-13: a
+// cold start answers in about 60 s (the very first one, which migrated the
+// tables, took about three minutes). Give it up to two minutes.
+const READY_TRIES = 240;
 const READY_WAIT_MS = 500;
 
 type Container = NonNullable<DurableObjectState['container']>;
