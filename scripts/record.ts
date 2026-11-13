@@ -4,6 +4,9 @@
 //
 //   node --env-file=.env --import ./scripts/register.mjs scripts/record.ts <scenario> --site <latitude10 checkout>
 //
+// `--out <file>` writes the replay there instead, to check a run before it
+// goes into the site.
+//
 // Needs TRIGGER_SECRET_KEY in .env (the environment the tasks run in), the
 // bge-m3 index, and the gateway deployed with the project's environment set.
 import { execSync } from 'node:child_process';
@@ -15,9 +18,11 @@ import { recordScenario, serialize, type TriggerClient } from '../src/recorder.t
 import type { permitRun } from '../src/trigger/permit.ts';
 
 const scenario = process.argv[2] as ScenarioId;
-const site = process.argv[process.argv.indexOf('--site') + 1];
+const flag = (name: string) => (process.argv.includes(name) ? process.argv[process.argv.indexOf(name) + 1] : undefined);
+const site = flag('--site');
+const outFile = flag('--out');
 if (!SCENARIOS.includes(scenario)) throw new Error(`Name a scenario: ${SCENARIOS.join(', ')}.`);
-if (!process.argv.includes('--site') || !site) throw new Error('Pass --site <path to the latitude10 checkout>.');
+if (!site && !outFile) throw new Error('Pass --site <path to the latitude10 checkout>, or --out <file>.');
 if (!process.env.TRIGGER_SECRET_KEY) throw new Error('Set TRIGGER_SECRET_KEY in .env.');
 if ((savedIndex as { embedder: string }).embedder !== '@cf/baai/bge-m3') throw new Error('A replay needs the bge-m3 index: npm run index -- --embedder workers-ai.');
 if (execSync('git status --porcelain', { encoding: 'utf8' }).trim()) throw new Error('Commit first: a replay names the engine commit it came from.');
@@ -37,7 +42,17 @@ const client: TriggerClient = {
 };
 
 console.log(`Recording ${scenario} from engine ${engineCommit}…`);
-const file = await recordScenario(scenario, { client, engineCommit });
-const out = `${site.replace(/\/$/, '')}/app/ai-platform/_lib/replays/${scenario}.json`;
+const triggered: string[] = [];
+const traced: TriggerClient = {
+  ...client,
+  trigger: async (payload, options) => {
+    const handle = await client.trigger(payload, options);
+    triggered.push(`${payload.input.run} ${handle.id}`);
+    return handle;
+  },
+};
+const file = await recordScenario(scenario, { client: traced, engineCommit });
+console.log(`trigger.dev runs:\n  ${[...new Set(triggered)].slice(0, 5).join('\n  ')}${triggered.length > 5 ? `\n  … ${triggered.length} in all` : ''}`);
+const out = outFile ?? `${site!.replace(/\/$/, '')}/app/ai-platform/_lib/replays/${scenario}.json`;
 writeFileSync(out, serialize(file));
 console.log(`${out}: ${file.events.length} events, recorded ${file.recordedAt}.`);

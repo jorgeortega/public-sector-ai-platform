@@ -65,19 +65,16 @@ export async function recordScenario(scenario: ScenarioId, options: RecordOption
     const wait = started + run.acceptAt - now();
     if (wait > 0) await sleep(wait);
     const acceptedAt = now() - started;
-    const handle = await options.client.trigger(
-      { input: run.input, scenarioStartedAt: started, acceptAt: run.acceptAt },
-      { concurrencyKey: run.input.tenant, idempotencyKey: run.input.run },
-    );
+    // trigger.dev keeps an idempotency key for 30 days: scoped to this
+    // recording, so recording a scenario again starts new runs.
+    const idempotencyKey = `${run.input.run}:${started}`;
+    const handle = await options.client.trigger({ input: run.input, scenarioStartedAt: started, acceptAt: run.acceptAt }, { concurrencyKey: run.input.tenant, idempotencyKey });
     tracked.push({ planned: run, id: handle.id, acceptedAt, approved: false });
     if (run.faults.duplicate) {
       // At-least-once delivery: the same job again, same idempotency key.
       // trigger.dev returns the original run instead of a second one.
       await sleep(1500);
-      const again = await options.client.trigger(
-        { input: run.input, scenarioStartedAt: started, acceptAt: run.acceptAt },
-        { concurrencyKey: run.input.tenant, idempotencyKey: run.input.run },
-      );
+      const again = await options.client.trigger({ input: run.input, scenarioStartedAt: started, acceptAt: run.acceptAt }, { concurrencyKey: run.input.tenant, idempotencyKey });
       const emit = new Emitter(sink, run.input.run, run.input.tenant, new FixedClock(now() - started));
       emit.log('warn', 'The same job was delivered again.');
       if (again.id === handle.id) {
