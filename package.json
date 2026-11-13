@@ -12,7 +12,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "index": "node scripts/build-index.ts",
-    "trace": "node --env-file=.env --import ./scripts/register.mjs scripts/trace.ts"
+    "trace": "node --env-file=.env --import ./scripts/register.mjs scripts/trace.ts",
+    "evals": "node --env-file=.env --import ./scripts/register.mjs scripts/evals.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "5.20261028.1",
@@ -29,6 +30,7 @@
     "workerd@1.20261023.1": true
   },
   "dependencies": {
+    "@langfuse/client": "6.1.0",
     "@langfuse/core": "6.1.0",
     "@langfuse/otel": "6.1.0",
     "@langfuse/tracing": "6.1.0",

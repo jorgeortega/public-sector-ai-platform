@@ -42,7 +42,7 @@ export function letterFor(app: Application): string {
     `I am applying for a business permit for ${app.business}, a ${app.type} in zone ${app.zone}, with ${app.staff} staff.`,
   ];
   if (app.foodHandlerCertificate !== undefined) lines.push(app.foodHandlerCertificate ? 'A food handler certificate is attached.' : 'We do not have a food handler certificate yet.');
-  if (app.stateLicences) lines.push('Everyone who works on clients holds a state licence.');
+  if (app.stateLicences !== undefined) lines.push(app.stateLicences ? 'Everyone who works on clients holds a state licence.' : 'Not everyone who works on clients holds a state licence yet.');
   if (app.signSquareMetres) lines.push(`The sign facing the street will be ${app.signSquareMetres} square metres.`);
   if (app.outdoorSeats !== undefined) lines.push(`We would like ${app.outdoorSeats} seats on the sidewalk.`);
   if (app.kitchen) lines.push(`We cook in a ${app.kitchen}.`);

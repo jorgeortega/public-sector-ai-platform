@@ -104,6 +104,9 @@ export type RunTraceOptions = {
   run: string;
   tenant: Tenant;
   scenario: ScenarioId;
+  // In place of the `scenario:` tag, for runs that aren't a scenario's (the
+  // evals tag `eval:<case>`).
+  tags?: string[];
   // One scenario execution is one session: its runs, side by side.
   sessionId: string;
   attempt: number;
@@ -120,7 +123,7 @@ export type RunTraceOptions = {
 export async function traceRun<T>(options: RunTraceOptions, work: (root: Trace) => Promise<T>, output: (value: T) => TraceAttributes, failed: (error: unknown) => TraceAttributes = () => ({})): Promise<T> {
   const traceId = await createTraceId(options.seed);
   const parentSpanId = (await createTraceId(`${options.seed}:parent`)).slice(0, 16);
-  const tags = [`city:${options.tenant}`, `scenario:${options.scenario}`, `kind:${options.kind}`];
+  const tags = [`city:${options.tenant}`, ...(options.tags ?? [`scenario:${options.scenario}`]), `kind:${options.kind}`];
   const metadata = { run: options.run, ...options.metadata };
   return propagateAttributes({ traceName: TRACE_NAMES[options.kind], sessionId: options.sessionId, tags, metadata }, async () => {
     // The parent is a W3C context that names the trace (the Langfuse docs'

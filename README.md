@@ -326,6 +326,32 @@ models, and the cost was reported at list price.
 Before deploying, check whether a newer 1.106.x patch (1.106.8 and 1.106.9
 carry security backports) is at least two weeks old, and move to it.
 
+## Evals (`data/golden.json`, `src/evals`)
+
+How often the desk recommends what the city's code says, as measured. The
+golden set is 20 fictional applications, each with the decision the code
+gives (9 approve, 6 refer, 5 deny), the sections it rests on, the sections
+it must never cite and a one-line why. Only cases the code decides are in
+it; boundaries (exactly 8 seats, exactly 2 square metres) are cases.
+
+`npm run evals` runs each case three times through the real workflow: the
+production gateway with a run key per attempt, search over the bge-m3 index
+and the Python field check. The registry answers and the approval is given
+at once, because what's measured is the recommendation. Four scores, all
+code, no model judging a model:
+
+| Score | Passes when |
+|---|---|
+| `decision` | the recommendation is the expected decision |
+| `citations` | it cites what the decision rests on, cites something, and never the planted note |
+| `retrieval` | search returned the sections the decision rests on (only for deny and refer) |
+| `extraction` | every field a rule turns on was read from the letter as written |
+
+Each run writes `evals/results/<date>-<commit>.json` with every attempt,
+prints the misses, and with `--compare <file>` the change from an earlier
+run. With the Langfuse keys, each attempt is traced in the environment
+`evals` and its scores are on its trace. A full run costs about $0.15.
+
 ## Commands
 
 ```
@@ -335,6 +361,7 @@ npm run typecheck      # tsc --noEmit, strict
 npm run index          # rebuild src/rag/index.json (hash-256)
 npm run index -- --dry # chunk only: counts and sizes
 npm run trace -- happy # send a scenario's traces to Langfuse (needs its keys in .env)
+npm run evals          # the golden set on the real gateway (about $0.15)
 docker compose -f gateway/docker-compose.yml up -d && node scripts/gateway-smoke.ts
 ```
 
