@@ -142,6 +142,11 @@ event the Labs page plays, so a workflow is only its logic:
     recommends approve for the bakery, which 20261113.4 denied, in 3 model
     calls for $0.0009, and its approval was completed and its report
     written.
+  - **Version 20261113.6, 2026-11-13: the evals' last two fixes
+    (ba677a9).** The eligibility check reads the letter, and code refers
+    an approval over an unmet rule. `ping` passed, and the eight replays
+    were re-recorded from 88c4edb: 2 to 6 model calls a run, $0.0008 to
+    $0.0028.
   - **The cold gateway.** A run's first call, `create-run-key`, waits up to
     about 60 s while the gateway's container wakes. It's traced.
   - **Known gap.** Each attempt makes a new run key and starts its spend
