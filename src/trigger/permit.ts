@@ -157,7 +157,11 @@ export const permitRun = task({
       approval: async () => {
         // The site completes this token when the visitor decides; it expires
         // after five minutes.
-        const token = await wait.createToken({ timeout: '5m', idempotencyKey: `${input.run}-approval` });
+        // Keyed by the trigger.dev run: a crashed run's next attempt finds
+        // its token, but a new run of the same scenario never does (a key
+        // lasts 30 days; keyed by the scenario's run id, a second recording
+        // found the first one's expired token).
+        const token = await wait.createToken({ timeout: '5m', idempotencyKey: `${ctx.run.id}-approval` });
         metadata.set('approvalToken', token.id);
         // The process may be checkpointed while it waits: send what's done.
         await tracing?.flush();
