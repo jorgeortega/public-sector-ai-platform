@@ -127,9 +127,11 @@ event the Labs page plays, so a workflow is only its logic:
   over a hash index. `test/engine.test.ts` runs all nine scenarios this way
   and checks the same golden facts as the site's fixtures.
 - **trigger.dev** (`src/trigger/permit.ts`, `trigger.config.ts`): the real
-  gateway, bge-m3 search and a real approval token. It typechecks, but it
-  hasn't run yet. Its first run on the owner's project is meant to confirm
-  that metadata survives a retry (the checkpoints live there) and that
+  gateway, bge-m3 search and a real approval token. Deployed to production
+  as version 20261113.1 on 2026-11-13. A `happy` run went through dev and
+  production, each traced in Langfuse. Both approvals expired, because
+  nobody completed the token. Still to confirm on the project: that
+  metadata survives a retry (the checkpoints live there), and that
   per-city concurrency holds.
 
 **One Python step.** `python/validate_fields.py`, standard library only,
