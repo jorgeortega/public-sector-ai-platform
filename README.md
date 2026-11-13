@@ -13,10 +13,12 @@ Every step is recorded as an event that the Labs page animates.
 > The cities, their codes, the businesses and the applications don't exist.
 > Nothing here has legal force.
 
-Status: **in progress, private.** The plan and specs are in the Latitude 10
-repo, under `docs/superpowers/specs/2026-11-1*-ai-platform-*.md`. This repo
-holds the modules that run outside the site; so far, those are `rag`,
-`llm-gateway` and `engine`.
+Status: **live, and public since 2026-11-13.** The page that plays its runs
+is [latitude10.tech/labs/ai-platform](https://latitude10.tech/labs/ai-platform).
+This repo holds the modules that run outside the site: retrieval, the
+engine, tracing, the LLM gateway and the evals. The page itself, its live-run
+gateway and the plan's specs live in the site's own repository, which isn't
+public.
 
 ## Retrieval (`src/rag`)
 
