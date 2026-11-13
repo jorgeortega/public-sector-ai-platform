@@ -137,6 +137,11 @@ event the Labs page plays, so a workflow is only its logic:
       survives the retry, and the second attempt skips intake, extract and
       retrieve.
     - **Burst.** The 50 Port Alder renewals ran at most five at once.
+  - **Version 20261113.5, 2026-11-13: the evals' prompt fix (84ef87e).**
+    `ping` passed. A `happy` run (`run_06gt7a9n29ueoqdljrcqp61la2`) now
+    recommends approve for the bakery, which 20261113.4 denied, in 3 model
+    calls for $0.0009, and its approval was completed and its report
+    written.
   - **The cold gateway.** A run's first call, `create-run-key`, waits up to
     about 60 s while the gateway's container wakes. It's traced.
   - **Known gap.** Each attempt makes a new run key and starts its spend
