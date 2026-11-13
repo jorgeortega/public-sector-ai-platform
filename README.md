@@ -251,6 +251,10 @@ Every model call goes through the LiteLLM proxy, pinned at
 - **Claude Haiku 5.5, falling back to gpt-oss-120b** on Workers AI. A
   response that fell back carries `x-litellm-attempted-fallbacks`, and every
   response carries its cost in `x-litellm-response-cost`.
+- **The `provider-down` route,** `claude-haiku-5-5-down`. Its only model is
+  a closed port in the container, so every call fails at once, costs
+  nothing, and really falls back to gpt-oss-120b. Teams and run keys may
+  call it. Added 2026-11-13: until then, neither config had it.
 - **Prices set in the config** from the providers' price lists (read
   2026-11-13), so spend never depends on what this LiteLLM version knows.
   `test/gateway.test.ts` checks both configs against `src/gateway/config.ts`.
