@@ -204,10 +204,22 @@ first time.
 
 ### Deploying (owner)
 
-1. **Accounts:** a Neon Free project (its connection string is
-   `DATABASE_URL`) and a Langfuse Hobby project.
+1. **Accounts:** a Neon Free project and a Langfuse Hobby project.
+   - The repo is linked to the Neon project `snowy-sun-31820672` (with
+     `neon init`; `neon.ts`, and `.neon` is gitignored). `neon env pull`
+     writes its URLs into `.env`.
+   - The gateway's `DATABASE_URL` secret must be Neon's
+     `DATABASE_URL_UNPOOLED`: LiteLLM's Prisma migrations need a direct
+     connection, not the pooler.
+   - `@neon/config` and `@neon/env` are dev dependencies at the versions
+     `neon init` chose (1.14.0 and 2.1.3, published 2026-11-09). That's an
+     exception to the two-weeks-old rule: only the Neon CLI uses them, and
+     older majors may not match CLI 9.4.
 2. **Secrets:** `npx wrangler secret put <NAME> -c gateway/wrangler.jsonc`
-   for each of:
+   for each of the list below. A value already in `.env` can be piped in
+   without showing it, for example `set -a; . ./.env; set +a; printf %s
+   "$DATABASE_URL_UNPOOLED" | npx wrangler secret put DATABASE_URL -c
+   gateway/wrangler.jsonc`. The secrets:
    - `LITELLM_MASTER_KEY`;
    - `DATABASE_URL`;
    - `ANTHROPIC_API_KEY` (the `labs` workspace);
