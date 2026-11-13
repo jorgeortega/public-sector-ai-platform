@@ -130,9 +130,17 @@ event the Labs page plays, so a workflow is only its logic:
   gateway, bge-m3 search and a real approval token. Deployed to production
   as version 20261113.1 on 2026-11-13. A `happy` run went through dev and
   production, each traced in Langfuse. Both approvals expired, because
-  nobody completed the token. Still to confirm on the project: that
-  metadata survives a retry (the checkpoints live there), and that
-  per-city concurrency holds.
+  nobody completed the token.
+  - **Checked on production, 2026-11-13, version 20261113.2, through the
+    recorder:**
+    - **Crash.** A crash resumes from its checkpoints: the metadata
+      survives the retry, and the second attempt skips intake, extract and
+      retrieve.
+    - **Burst.** The 50 Port Alder renewals ran at most five at once.
+  - **The cold gateway.** A run's first call, `create-run-key`, waits up to
+    about 60 s while the gateway's container wakes. It's traced.
+  - **Known gap.** Each attempt makes a new run key and starts its spend
+    at $0, so a run that crashes can spend its budget twice.
 
 **One Python step.** `python/validate_fields.py`, standard library only,
 checks the fields the model extracted. A TypeScript copy of its rules runs
