@@ -12,7 +12,9 @@ import { hashEmbed, hashEmbedder } from '../rag/vectors.ts';
 import { Context, newStore, type Store } from '../sdk/context.ts';
 import { Emitter, Sink } from '../sdk/emitter.ts';
 import { BudgetStop, StepFailed, WorkerCrash } from '../sdk/errors.ts';
+import { endedBy, traceRun } from '../sdk/trace.ts';
 import type { Clock, RunModel, Services } from '../sdk/types.ts';
+import { letterFor } from '../permit/applications.ts';
 
 // The in-memory runtime: the same workflow, on a virtual clock, with the
 // fake model and the real search over a hash-256 index built here (no
@@ -40,7 +42,9 @@ export class VirtualClock implements Clock {
 let cachedIndex: Promise<LoadedIndex> | undefined;
 const hashIndex = () => (cachedIndex ??= buildIndex(readSources(), hashEmbedder).then(loadIndex));
 
-export type MemoryOptions = { python?: string; model?: (run: PlannedRun, maxBudgetUsd: number) => RunModel };
+// `epoch`: the wall-clock time the scenario's virtual 0 stands for in its
+// Langfuse traces (only used when src/tracing/langfuse.ts is started).
+export type MemoryOptions = { python?: string; model?: (run: PlannedRun, maxBudgetUsd: number) => RunModel; epoch?: number };
 
 async function services(planned: PlannedRun, options: MemoryOptions): Promise<Services> {
   const index = await hashIndex();
@@ -56,7 +60,7 @@ async function services(planned: PlannedRun, options: MemoryOptions): Promise<Se
 const workerName = (n: number) => `w${n}`;
 
 // One run, start to end. Returns when it ended (virtual ms).
-async function runOne(sink: Sink, planned: PlannedRun, slot: { worker: number; startAt: number; position: number }, options: MemoryOptions): Promise<number> {
+async function runOne(sink: Sink, planned: PlannedRun, slot: { worker: number; startAt: number; position: number }, options: MemoryOptions & { epoch: number }): Promise<number> {
   const { input, faults } = planned;
   const clock = new VirtualClock(planned.acceptAt);
   const emit = new Emitter(sink, input.run, input.tenant, clock);
@@ -78,6 +82,7 @@ async function runOne(sink: Sink, planned: PlannedRun, slot: { worker: number; s
   const svc = await services(planned, options);
   const model = await svc.model(input, faults.runBudgetUsd ?? RUN_KEY.maxBudget);
 
+  let duplicateAt: number | undefined;
   if (faults.duplicate) {
     // At-least-once delivery: the queue hands the job to a second worker
     // 1.5 s in. The run's idempotency key is taken, so it does nothing.
@@ -88,6 +93,7 @@ async function runOne(sink: Sink, planned: PlannedRun, slot: { worker: number; s
     later.pass(40);
     second.emit('queue.dequeued', { worker: 'w5' });
     if (store.claims.has(`${input.run}:run`)) {
+      duplicateAt = later.now();
       second.emit('step.skipped', { step: 'intake', why: 'idempotent' });
       second.audit('duplicate.ignored', `key ${input.run}:run`, 'worker:w5');
       second.log('info', `w5 found the idempotency key ${input.run}:run already claimed by ${worker} and dropped the second delivery.`);
@@ -95,15 +101,38 @@ async function runOne(sink: Sink, planned: PlannedRun, slot: { worker: number; s
   }
 
   let first = true;
+  let attempt = 1;
   let usage = { spent: 0, calls: 0 };
   let outcome: Outcome | 'failed' | 'budget_exceeded';
-  for (;;) {
-    const ctx = new Context({ input, emit, clock, services: svc, store, faults, worker, firstWorker: first, model, ...usage });
+  const sessionId = `${input.scenario}-${options.epoch}`;
+  for (; ; attempt++) {
+    let ctx: Context | undefined;
     try {
-      outcome = planned.kind === 'renewal' ? await renewal(ctx, input.application) : await permit(ctx, application(input.application), faults);
+      const traced = {
+        seed: `${sessionId}:${input.run}`,
+        kind: planned.kind,
+        run: input.run,
+        tenant: input.tenant,
+        scenario: input.scenario,
+        sessionId,
+        attempt,
+        input: planned.kind === 'permit' ? { application: input.application, letter: letterFor(application(input.application)) } : { application: input.application },
+        metadata: { runtime: 'memory', worker },
+        at: () => new Date(options.epoch + clock.now()),
+      };
+      outcome = await traceRun(
+        traced,
+        async (root) => {
+          if (duplicateAt !== undefined && first) root.event('drop-duplicate-delivery', { metadata: { worker: 'w5', key: `${input.run}:run` } }, new Date(options.epoch + duplicateAt));
+          ctx = new Context({ input, emit, clock, services: svc, store, faults, worker, firstWorker: first, model, ...usage, trace: root });
+          return planned.kind === 'renewal' ? await renewal(ctx, input.application) : await permit(ctx, application(input.application), faults);
+        },
+        (result) => ({ output: { outcome: result, ...ctx?.result }, metadata: { spentUsd: ctx?.usage.spent ?? 0, modelCalls: ctx?.usage.calls ?? 0 } }),
+        (error) => ({ output: { outcome: endedBy(error) }, metadata: { spentUsd: ctx?.usage.spent ?? 0, modelCalls: ctx?.usage.calls ?? 0 } }),
+      );
       break;
     } catch (error) {
-      usage = ctx.usage;
+      usage = ctx?.usage ?? usage;
       if (error instanceof WorkerCrash) {
         emit.emit('worker.crashed', { worker: worker as never });
         emit.audit('worker.crashed', worker);
@@ -148,6 +177,7 @@ async function runOne(sink: Sink, planned: PlannedRun, slot: { worker: number; s
 // A scenario's runs, scheduled on each city's queue, into one replay.
 export async function runScenario(scenario: ScenarioId, options: MemoryOptions = {}): Promise<ReplayFile> {
   const sink = new Sink();
+  const timed = { ...options, epoch: options.epoch ?? Date.now() };
   const planned = [...SCENARIO_RUNS[scenario]()].sort((a, b) => a.acceptAt - b.acceptAt);
   // Workers: w1 to w5 for Port Alder, w6 to w10 for Kestrel Bay; a single run
   // uses the worker its fixture names.
@@ -164,7 +194,7 @@ export async function runScenario(scenario: ScenarioId, options: MemoryOptions =
     starts.push({ tenant: run.input.tenant, startAt });
     const offset = run.input.tenant === 'port-alder' ? 1 : PER_CITY + 1;
     const worker = firstWorker[run.input.run] ?? offset + slot;
-    slots[slot] = await runOne(sink, run, { worker, startAt, position }, options);
+    slots[slot] = await runOne(sink, run, { worker, startAt, position }, timed);
   }
   return sink.file(scenario, 'fixture');
 }

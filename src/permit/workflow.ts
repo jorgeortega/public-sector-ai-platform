@@ -27,7 +27,7 @@ export async function permit(ctx: Context, app: Application, faults: Faults): Pr
   });
 
   const fields = await ctx.step('extract', async () => {
-    const extracted = await ctx.llm(extractMessages(letterFor(app)), ExtractSchema);
+    const extracted = await ctx.llm(extractMessages(letterFor(app)), ExtractSchema, { name: 'read-application-letter' });
     const problems = await ctx.validate(extracted);
     const named = Object.entries(extracted).filter(([, value]) => value !== undefined).length;
     return { value: extracted, summary: `${named} fields read from the letter${problems.length ? `; ${problems.length} need a person` : ''}.` };
@@ -47,7 +47,7 @@ export async function permit(ctx: Context, app: Application, faults: Faults): Pr
       turn += 1;
       // The `budget` fault: the check keeps re-reading the whole code.
       const sources = faults.loopEligibility && turn > 1 ? await ctx.search(`${searchQuery(fields)} every rule`, 8) : hits;
-      result = await ctx.llm(eligibilityMessages(fields, sources, turn > 1), EligibilitySchema);
+      result = await ctx.llm(eligibilityMessages(fields, sources, turn > 1), EligibilitySchema, { name: 'judge-eligibility' });
       if (faults.loopEligibility) ctx.emit.log('warn', `Eligibility turn ${turn}: the model asked to read the whole code again.`);
     } while (faults.loopEligibility || (result.needMore && turn < 3));
     const met = result.rules.filter((rule) => rule.met).length;
@@ -64,7 +64,7 @@ export async function permit(ctx: Context, app: Application, faults: Faults): Pr
   );
 
   const recommendation = await ctx.step('recommend', async () => {
-    const answer = await ctx.llm(recommendMessages(fields, findings, hits), RecommendationSchema);
+    const answer = await ctx.llm(recommendMessages(fields, findings, hits), RecommendationSchema, { name: 'draft-recommendation' });
     // Only sections search returned unquarantined may be cited (spec E5).
     const allowed = new Set(hits.filter((hit) => !hit.quarantined).map((hit) => hit.id));
     const citations = answer.citations.filter((id) => allowed.has(id));
@@ -72,14 +72,14 @@ export async function permit(ctx: Context, app: Application, faults: Faults): Pr
     return { value: { ...answer, citations }, summary: `Recommend ${answer.decision}, citing ${citations.length} section${citations.length === 1 ? '' : 's'}.` };
   });
 
-  const decision = await ctx.approval();
+  const decision = await ctx.approval(recommendation);
   if (decision !== 'approve') return 'rejected';
 
   await ctx.step('report', async () => {
     // Written once per run, whatever delivers it (spec E2).
     if (ctx.claim('report')) {
       ctx.clock.pass(260);
-      ctx.emit.emit('report.written', { decision: recommendation.decision, citations: recommendation.citations.slice(0, 6), text: recommendation.summary.slice(0, 1200) });
+      ctx.writeReport({ decision: recommendation.decision, citations: recommendation.citations, text: recommendation.summary });
       ctx.emit.audit('report.written', recommendation.decision, ctx.workerActor);
     }
     return { value: true, summary: `Decision report written: ${recommendation.decision}.` };
@@ -90,7 +90,7 @@ export async function permit(ctx: Context, app: Application, faults: Faults): Pr
 // A renewal (the burst): nothing changed, so a short path with no approval.
 export async function renewal(ctx: Context, id: string): Promise<Outcome> {
   const answer = await ctx.step('extract', async () => {
-    const result = await ctx.llm(renewalMessages(id), RenewalSchema);
+    const result = await ctx.llm(renewalMessages(id), RenewalSchema, { name: 'compare-with-last-year' });
     return { value: result, summary: result.changed ? 'Something changed: full review.' : 'Same as last year.' };
   });
   await ctx.step('eligibility', async () => {
@@ -98,7 +98,7 @@ export async function renewal(ctx: Context, id: string): Promise<Outcome> {
     return { value: !answer.changed, summary: answer.changed ? 'Changed: refer.' : 'No change: renew.' };
   });
   await ctx.step('report', async () => {
-    if (ctx.claim('report')) ctx.emit.emit('report.written', { decision: answer.changed ? 'refer' : 'approve', citations: [], text: answer.changed ? 'Referred for a full review.' : 'Renewed.' });
+    if (ctx.claim('report')) ctx.writeReport({ decision: answer.changed ? 'refer' : 'approve', citations: [], text: answer.changed ? 'Referred for a full review.' : 'Renewed.' });
     return { value: true, summary: 'Renewal decided.' };
   });
   return 'completed';

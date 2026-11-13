@@ -28,8 +28,9 @@ router_settings:
 litellm_settings:
   drop_params: true
   request_timeout: 60
-  success_callback: ["langfuse"]
-  failure_callback: ["langfuse"]
+  # No Langfuse callback: the engine traces each call inside its run's trace
+  # (src/sdk/trace.ts). A callback here would log every call a second time,
+  # as its own unlinked trace.
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY

@@ -37,12 +37,16 @@ describe.each([
 });
 
 describe('the production config', () => {
-  it('reads every credential from the environment, and sends traces to Langfuse', () => {
+  it('reads every credential from the environment, and leaves tracing to the engine', () => {
     for (const entry of prod.model_list) {
       expect(String(entry.litellm_params.api_key)).toMatch(/^os\.environ\//);
       if ('api_base' in entry.litellm_params) expect(String(entry.litellm_params.api_base)).toMatch(/^os\.environ\//);
     }
-    expect(prod.litellm_settings.success_callback).toEqual(['langfuse']);
+    // The engine traces each call in its run's trace; a callback would add a
+    // second, unlinked copy of every call.
+    expect(prod.litellm_settings).not.toHaveProperty('success_callback');
+    expect(prod.litellm_settings).not.toHaveProperty('failure_callback');
+    expect(prod.litellm_settings).not.toHaveProperty('callbacks');
   });
 
   it('runs the same pinned image locally as in the Container', () => {

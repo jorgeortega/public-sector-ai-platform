@@ -1,7 +1,7 @@
 import { python } from '@trigger.dev/python';
 import { metadata, task, wait } from '@trigger.dev/sdk';
 import type { RunEvent } from '../events/events';
-import { application } from '../permit/applications.ts';
+import { application, letterFor } from '../permit/applications.ts';
 import { registryCall } from '../permit/registry.ts';
 import { PER_CITY, SCENARIO_RUNS } from '../permit/scenarios.ts';
 import { problemsTs } from '../permit/validate.ts';
@@ -13,7 +13,9 @@ import savedIndex from '../rag/index.json';
 import { Context, newStore, type Store } from '../sdk/context.ts';
 import { Emitter, Sink } from '../sdk/emitter.ts';
 import { BudgetStop, StepFailed } from '../sdk/errors.ts';
+import { endedBy, traceRun } from '../sdk/trace.ts';
 import type { Clock, RunInput, Services } from '../sdk/types.ts';
+import { environmentName, startLangfuse } from '../tracing/langfuse.ts';
 
 // The permit workflow on trigger.dev (spec docs/superpowers/specs/
 // 2026-11-13-ai-platform-engine.md): the same workflow as the in-memory
@@ -105,6 +107,10 @@ export const permitRun = task({
     if (!planned) throw new Error(`${input.run} is not a run of ${input.scenario}.`);
     const { faults } = planned;
     const clock = new RealClock(payload.scenarioStartedAt);
+    // Langfuse (spec 2026-11-13-ai-platform-tracing.md), when the project's
+    // environment has its keys: the trigger.dev environment names the
+    // Langfuse one, so dev runs never mix with production's.
+    const tracing = startLangfuse({ environment: environmentName(ctx.environment.type), ...(ctx.deployment?.version && { release: ctx.deployment.version }) });
     // Events go to the run's metadata as they happen; the recorder and the
     // site's live route read them from there.
     const sink = new Sink();
@@ -149,15 +155,40 @@ export const permitRun = task({
         // after five minutes.
         const token = await wait.createToken({ timeout: '5m', idempotencyKey: `${input.run}-approval` });
         metadata.set('approvalToken', token.id);
+        // The process may be checkpointed while it waits: send what's done.
+        await tracing?.flush();
         // The wait has already happened in real time, so the context sleeps 0.
         const result = await wait.forToken<{ decision: 'approve' | 'reject' }>(token);
         return result.ok ? { decision: result.output.decision, by: 'visitor', waitMs: 0 } : { decision: 'reject', by: 'timeout', waitMs: 0 };
       },
     };
     const model = await services.model(input, maxBudget);
-    const context = new Context({ input, emit, clock, services, store: metadataStore(), faults, worker, firstWorker: first, model });
+    let context: Context | undefined;
     try {
-      const outcome = planned.kind === 'renewal' ? await renewal(context, input.application) : await permit(context, application(input.application), faults);
+      const sessionId = `${input.scenario}-${payload.scenarioStartedAt}`;
+      const outcome = await traceRun(
+        {
+          // The trigger.dev run id: every attempt of this run joins one trace.
+          seed: ctx.run.id,
+          kind: planned.kind,
+          run: input.run,
+          tenant: input.tenant,
+          scenario: input.scenario,
+          sessionId,
+          attempt: ctx.attempt.number,
+          input: planned.kind === 'permit' ? { application: input.application, letter: letterFor(application(input.application)) } : { application: input.application },
+          metadata: { runtime: 'trigger.dev', triggerRun: ctx.run.id, worker },
+          at: () => new Date(),
+        },
+        async (root) => {
+          // The Langfuse trace, for the site's console to link to.
+          if (tracing && root.traceId) metadata.set('langfuseTraceId', root.traceId);
+          context = new Context({ input, emit, clock, services, store: metadataStore(), faults, worker, firstWorker: first, model, trace: root });
+          return planned.kind === 'renewal' ? await renewal(context, input.application) : await permit(context, application(input.application), faults);
+        },
+        (result) => ({ output: { outcome: result, ...context?.result }, metadata: { spentUsd: context?.usage.spent ?? 0, modelCalls: context?.usage.calls ?? 0 } }),
+        (error) => ({ output: { outcome: endedBy(error) }, metadata: { spentUsd: context?.usage.spent ?? 0, modelCalls: context?.usage.calls ?? 0 } }),
+      );
       if (outcome === 'completed') emit.emit('run.state', { to: 'completed' });
       return { outcome };
     } catch (error) {
@@ -176,6 +207,7 @@ export const permitRun = task({
       throw error;
     } finally {
       await model.close().catch(() => {});
+      await tracing?.flush().catch(() => {});
     }
   },
 });

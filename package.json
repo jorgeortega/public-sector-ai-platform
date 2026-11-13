@@ -11,7 +11,8 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "index": "node scripts/build-index.ts"
+    "index": "node scripts/build-index.ts",
+    "trace": "node --env-file=.env --import ./scripts/register.mjs scripts/trace.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "5.20261028.1",
@@ -28,6 +29,17 @@
     "workerd@1.20261023.1": true
   },
   "dependencies": {
+    "@langfuse/core": "6.1.0",
+    "@langfuse/otel": "6.1.0",
+    "@langfuse/tracing": "6.1.0",
+    "@opentelemetry/api": "1.9.1",
+    "@opentelemetry/context-async-hooks": "2.8.0",
+    "@opentelemetry/core": "2.8.0",
+    "@opentelemetry/exporter-trace-otlp-http": "0.219.0",
+    "@opentelemetry/otlp-exporter-base": "0.219.0",
+    "@opentelemetry/resources": "2.8.0",
+    "@opentelemetry/sdk-trace-base": "2.8.0",
+    "@opentelemetry/sdk-trace-node": "2.8.0",
     "@trigger.dev/python": "4.8.2",
     "@trigger.dev/sdk": "4.8.2",
     "zod": "3.25.76"

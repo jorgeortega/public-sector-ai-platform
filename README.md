@@ -162,6 +162,70 @@ budget would never be reached before the engine's 12-call limit.
   It writes `app/ai-platform/_lib/replays/<scenario>.json` as `recorded`,
   with this repo's commit.
 
+## Tracing (`src/sdk/trace.ts`, `src/tracing`)
+
+Every run is one Langfuse trace, sent by the engine. The SDK's methods trace
+themselves, as they emit their own events, so the workflow has no tracing
+code beyond a name for each model call. The shape follows Langfuse's
+[best practices](https://langfuse.com/docs/observability/best-practices),
+read 2026-11-13:
+
+```
+review-permit-application        agent       input: the letter; output: the decision
+├─ receive-application           span
+├─ extract-fields                span
+│  ├─ read-application-letter    generation  model, tokens, the gateway's cost
+│  └─ validate-fields            tool        the Python step
+├─ retrieve-code-sections        span
+│  ├─ search-city-code           retriever   the sections, with scores
+│  └─ quarantine-instructions    guardrail   WARNING when it kept one out
+├─ check-eligibility             span
+│  └─ judge-eligibility          generation  one per call, never one per loop
+├─ verify-registration           span        WARNING per retried attempt
+│  └─ check-business-registry    tool        ERROR on a 429 or 5xx
+├─ recommend-decision            span
+│  └─ draft-recommendation       generation
+├─ await-human-approval          span        input: the recommendation
+└─ write-report                  span
+```
+
+- **Trace attributes.** Tags `city:…`, `scenario:…` and `kind:…`, set when
+  the trace starts. One session per scenario execution. Run metadata on
+  every observation.
+- **Environments.** `local` for `scripts/trace.ts`. Otherwise trigger.dev's
+  environment, `development` or `production`. The release is the engine
+  commit, or the trigger.dev deployment.
+- **One trace across attempts.** The trace id comes from the trigger.dev run
+  id, so a crashed run's second attempt joins the first attempt's trace. The
+  first attempt ends ERROR, "worker crashed in eligibility". The second
+  shows a `skip-checkpointed-step` event for each checkpoint it reused.
+- **Masking.** Every input, output and metadata value passes the scrubber's
+  `redact` before it leaves.
+- **The gateway sends nothing.** LiteLLM's Langfuse callback would log
+  every call again as an unlinked trace of its own. The engine already
+  records each call inside its run, with the cost the gateway charged.
+- **Off by default.** It's off without `LANGFUSE_PUBLIC_KEY` and
+  `LANGFUSE_SECRET_KEY`, and so off in the tests. `test/tracing.test.ts`
+  checks the shape through the real `LangfuseSpanProcessor` with an
+  in-memory exporter.
+- **Sending traces now:**
+
+  ```
+  npm run trace -- <scenario>… | all
+  ```
+
+  It runs the scenarios in memory: the fake model, no spend. On trigger.dev,
+  set `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY` and `LANGFUSE_BASE_URL`
+  (`https://us.cloud.langfuse.com`) in the project's environment variables.
+- **Versions.** `@langfuse/tracing`, `@langfuse/otel` and `@langfuse/core`
+  are 6.1.0 (2026-10-30), the newest release at least two weeks old.
+  OpenTelemetry is pinned to trigger.dev's own 2.8.0 and API 1.9.1, so the
+  two share one context.
+- **Batched export.** Spans go in batches, flushed at the end of each run
+  and before the approval wait. `immediate` mode sends each span as its own
+  request, and the exporter drops anything past 30 in flight. The first
+  multi-scenario run lost every span after the 30th this way.
+
 ## LLM gateway (`gateway/`, `src/gateway`)
 
 Every model call goes through the LiteLLM proxy, pinned at
@@ -225,10 +289,9 @@ first time.
    - `ANTHROPIC_API_KEY` (the `labs` workspace);
    - `CLOUDFLARE_AI_TOKEN`;
    - `WORKERS_AI_BASE_URL`
-     (`https://api.cloudflare.com/client/v4/accounts/<id>/ai/v1`);
-   - `LANGFUSE_PUBLIC_KEY`;
-   - `LANGFUSE_SECRET_KEY`;
-   - `LANGFUSE_HOST`.
+     (`https://api.cloudflare.com/client/v4/accounts/<id>/ai/v1`).
+
+   The gateway sends nothing to Langfuse: the engine does (see Tracing).
 3. **Deploy:** `npx wrangler deploy -c gateway/wrangler.jsonc`. Docker must
    be running; `--dry-run` passes.
 4. **Teams:** `GATEWAY_URL=… LITELLM_MASTER_KEY=… node
@@ -245,6 +308,7 @@ npm test               # vitest
 npm run typecheck      # tsc --noEmit, strict
 npm run index          # rebuild src/rag/index.json (hash-256)
 npm run index -- --dry # chunk only: counts and sizes
+npm run trace -- happy # send a scenario's traces to Langfuse (needs its keys in .env)
 docker compose -f gateway/docker-compose.yml up -d && node scripts/gateway-smoke.ts
 ```
 

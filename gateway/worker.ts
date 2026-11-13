@@ -16,9 +16,6 @@ export interface Env {
   ANTHROPIC_API_KEY: string;
   CLOUDFLARE_AI_TOKEN: string;
   WORKERS_AI_BASE_URL: string;
-  LANGFUSE_PUBLIC_KEY: string;
-  LANGFUSE_SECRET_KEY: string;
-  LANGFUSE_HOST: string;
 }
 
 const PORT = 4000;
@@ -72,9 +69,6 @@ export class Gateway extends DurableObject<Env> {
           ANTHROPIC_API_KEY: env.ANTHROPIC_API_KEY,
           CLOUDFLARE_AI_TOKEN: env.CLOUDFLARE_AI_TOKEN,
           WORKERS_AI_BASE_URL: env.WORKERS_AI_BASE_URL,
-          LANGFUSE_PUBLIC_KEY: env.LANGFUSE_PUBLIC_KEY,
-          LANGFUSE_SECRET_KEY: env.LANGFUSE_SECRET_KEY,
-          LANGFUSE_HOST: env.LANGFUSE_HOST,
         },
       });
     }
